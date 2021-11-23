@@ -1,0 +1,525 @@
+---
+swagger: "2.0"
+info:
+  description: API for the Group Project for the team composed of Zach Jester, Zack Koval, Kathryn Stovall, and Jack Rothenberg
+  version: 1.0.4
+  title: Ach Project Manager
+  termsOfService: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  contact:
+    email: zjester@wpi.edu
+host: virtserver.swaggerhub.com
+basePath: /teamAch/achGroupProject/1.0.3
+tags:
+- name: admins
+  description: Admins that can archive or delete projects
+- name: users
+  description: Operations available to regular users
+schemes:
+- https
+paths:
+  /projectView/{projectName}:
+    get:
+      tags:
+      - users
+      summary: Loads selected project in project view
+      description: |
+        Loads project in a project-based manner (shows tasks with their assigned teammates)
+      operationId: viewProject
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project to open in project view
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Project found
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+  /teamView/{projectName}:
+    get:
+      tags:
+      - users
+      summary: Loads selected project in team view
+      description: |
+        Loads project in a team-based manner (shows teammates with their assigned tasks)
+      operationId: viewProjectTeam
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project to open in team view
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Project found with selected name
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+  /createProject:
+    post:
+      tags:
+      - users
+      summary: Creates a new project
+      description: |
+        Creates a new project with the selected name
+      operationId: createProject
+      produces:
+      - application/json
+      parameters:
+      - name: projectID
+        in: query
+        description: Unique name of project to be created
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Project created with selected name
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "409":
+          description: Project already exists
+  /addTeammate/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Adds a new teammate to a project
+      description: |
+        Adds a new teammate with a selected name to a selected project
+      operationId: addTeammate
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for teammmate to be added to
+        required: true
+        type: string
+      - name: teammateID
+        in: query
+        description: Unique name of teammate to be added
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Teammate added
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+        "405":
+          description: Teammate already in project
+  /removeTeammate/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Removes a teammate from a project
+      description: |
+        Removes a teammate with a selected name from a selected project
+      operationId: removeTeammate
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for teammmate to be removed from
+        required: true
+        type: string
+      - name: teammateID
+        in: query
+        description: Unique name of teammate to be removed
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Teammate removed
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "401":
+          description: Teammate not found
+        "404":
+          description: Project not found
+  /addTask{projectName}:
+    post:
+      tags:
+      - users
+      summary: Adds task to project
+      description: |
+        Adds a task with a selected name to a selected project
+      operationId: addTask
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for task to be added
+        required: true
+        type: string
+      - name: taskName
+        in: query
+        description: Name of task to be added
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Task added
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "402":
+          description: Task already exists
+        "404":
+          description: Project not found
+  /splitTask/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Subdivides a task into subtasks
+      description: |
+        Splits a selected task into a subtask with a selected name and redistributes teammates
+      operationId: splitTask
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for task to be split
+        required: true
+        type: string
+      - name: taskName
+        in: query
+        description: Name of task to be split
+        required: true
+        type: string
+      - name: numSubTasks
+        in: query
+        description: Number of new unnamed subtasks to make
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Subtasks added, users split
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "403":
+          description: Subtask already exists
+        "404":
+          description: Project not found
+        "406":
+          description: Task not found
+  /markTask/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Marks a task
+      description: |
+        Marks a selected task with a selected marking
+      operationId: markTask
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for task to be marked
+        required: true
+        type: string
+      - name: taskName
+        in: query
+        description: Name of task to be marked
+        required: true
+        type: string
+      - name: mark
+        in: query
+        description: Mark to be added to the selected task
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Task marked
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+        "406":
+          description: Task not found
+        "407":
+          description: Task already has selected mark
+  /assignTeammate/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Assigns teammate to a selected task
+      description: |
+        Assigns a selected teammate to a selected task in a selected project
+      operationId: assignTeammate
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for teammate to be assigned
+        required: true
+        type: string
+      - name: taskName
+        in: query
+        description: Name of task for teammate to be assigned
+        required: true
+        type: string
+      - name: teammateID
+        in: query
+        description: Unique name of teammate to be assigned
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Teammate assigned
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "401":
+          description: Teammate not found
+        "404":
+          description: Project not found
+        "406":
+          description: Task not found
+        "408":
+          description: Teammate already in selected task
+  /unassignTeammate/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Unassigns teammate from a selected task
+      description: |
+        Unassigns a selected teammate from a selected task in a selected project
+      operationId: unassignTeammate
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for teammate to be unassigned
+        required: true
+        type: string
+      - name: taskName
+        in: query
+        description: Name of task for teammate to be unassigned
+        required: true
+        type: string
+      - name: teammateID
+        in: query
+        description: Unique name of teammate to be unassigned
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Teammate unassigned
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "401":
+          description: Teammate not found
+        "404":
+          description: Project not found
+        "406":
+          description: Task not found
+        "410":
+          description: Teammate not in selected task
+  /renameTask/{projectName}:
+    post:
+      tags:
+      - users
+      summary: Renames a selected task
+      description: |
+        Renames a selected task with a selected name
+      operationId: renameTask
+      produces:
+      - application/json
+      parameters:
+      - name: projectName
+        in: path
+        description: Unique name of project for task to be renamed
+        required: true
+        type: string
+      - name: oldTaskName
+        in: query
+        description: Name of task for to be renamed
+        required: true
+        type: string
+      - name: newTaskName
+        in: query
+        description: New name to assign task
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Task renamed
+          schema:
+            $ref: '#/definitions/projectData'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+        "406":
+          description: Task not found
+        "411":
+          description: New task name matches old name
+  /archiveProject:
+    post:
+      tags:
+      - admins
+      summary: Archives selected project
+      description: |
+        Archives a selected project
+      operationId: archiveProject
+      produces:
+      - application/json
+      parameters:
+      - name: projectID
+        in: query
+        description: Unique name of project to be archived
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Project archived
+          schema:
+            $ref: '#/definitions/projectListResponse'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+        "412":
+          description: Project already archived
+  /deleteProject:
+    post:
+      tags:
+      - admins
+      summary: Deletes selected project
+      description: |
+        Deletes a selected project
+      operationId: deleteProject
+      produces:
+      - application/json
+      parameters:
+      - name: projectID
+        in: query
+        description: Unique name of project to be deleted
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Project deleted
+          schema:
+            $ref: '#/definitions/projectListResponse'
+        "400":
+          description: Generic error response
+        "404":
+          description: Project not found
+  /listProjects:
+    get:
+      tags:
+      - admins
+      summary: Lists all projects
+      description: |
+        Shows a list of all projects and their relative progress
+      operationId: listProjects
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: Projects list shown
+          schema:
+            $ref: '#/definitions/projectListResponse'
+        "400":
+          description: Generic error response
+definitions:
+  TeamMate:
+    type: object
+    required:
+    - name
+    - taskList
+    properties:
+      name:
+        type: string
+        example: Bobby Tables
+      taskList:
+        type: array
+        example: {}
+        items: {}
+  Task:
+    type: object
+    required:
+    - isComplete
+    - isTerminal
+    - name
+    - outlineID
+    properties:
+      name:
+        type: string
+        example: Delete SQL database
+      outlineID:
+        type: string
+        example: "1.1"
+      teammateList:
+        type: array
+        example: {}
+        items: {}
+      parentTask:
+        type: string
+        example: Execute Bobby Tables Attack
+      isTerminal:
+        type: boolean
+      isComplete:
+        type: boolean
+    description: Data for a task
+  projectData:
+    type: object
+    properties:
+      projectID:
+        type: string
+        example: Hacker Squad
+      teammateList:
+        type: array
+        example: {}
+        items: {}
+      taskList:
+        type: array
+        example: {}
+        items: {}
+      archived:
+        type: boolean
+        example: false
+    description: Data for the selected project
+  projectListResponse:
+    type: object
+    properties:
+      projectList:
+        type: array
+        example: {}
+        items: {}
+    description: List of projects for admin view
