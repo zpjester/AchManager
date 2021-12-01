@@ -66,6 +66,6 @@ LambdaLogger logger;
 			response = new ProjectData("Unable to create constant: " + req.name + "(" + e.getMessage() + ")", null, null, false, 400);
 		}
 		
-		return new ProjectData("bob", null, null, false);
+		return response;
 	}
 }
