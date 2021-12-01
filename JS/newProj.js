@@ -1,3 +1,5 @@
+
+
 function processCreateResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its
   // contents dynamically via javascript
@@ -21,7 +23,7 @@ function handleCreateClick(e) {
   var js = JSON.stringify(data);
   console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", create_url, true);
+  xhr.open("POST", createProject_url, true);
 
   // send the collected data as JSON
   xhr.send(js);

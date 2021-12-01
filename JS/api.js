@@ -1,5 +1,5 @@
 
-var base_url = "URL HERE";
+var base_url = "https://yhrsv3za9j.execute-api.us-east-2.amazonaws.com/Alpha";
 
 var projectView_url    = base_url + "/projectView";   // GET
 var teamView_url   = base_url + "";    // GET
