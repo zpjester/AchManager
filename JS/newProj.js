@@ -9,16 +9,17 @@ function processCreateResponse(result) {
 }
 
 function handleCreateClick(e) {
-  var form = document.createForm;
- 
+  var form = document.createProj;
+  // console.log("Creating project with " + e.createForm.JSON.stringify);
+
   var data = {};
-  data["Pname"] = form.projectName.value;
+  data["projectID"] = form.projectName.value;
   
-  if (form.system.checked) {  // be sure to flag system constant requests...
-     data["system"] = true;
-  }
+  // if (form.system.checked) {  // be sure to flag system constant requests...
+  //    data["system"] = true;
+  // }
   
-  data["value"] = form.constantValue.value;
+  // data["value"] = form.constantValue.value;
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);
