@@ -1,0 +1,645 @@
+{
+  "swagger" : "2.0",
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "Admins that can archive or delete projects"
+  }, {
+    "name" : "users",
+    "description" : "Operations available to regular users"
+  } ],
+  "paths" : {
+    "/projectView/{projectName}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Loads selected project in project view",
+        "operationId" : "viewProject",
+        "description" : "Loads project in a project-based manner (shows tasks with their assigned teammates)\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "projectName",
+          "in" : "path",
+          "description" : "Unique name of project to open in project view",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project found",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          }
+        }
+      }
+    },
+    "/teamView/{projectName}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Loads selected project in team view",
+        "operationId" : "viewProjectTeam",
+        "description" : "Loads project in a team-based manner (shows teammates with their assigned tasks)\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project to open in team view",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project found with selected name",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          }
+        }
+      }
+    },
+    "/createProject" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Creates a new project",
+        "operationId" : "createProject",
+        "description" : "Creates a new project with the selected name\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "projectID",
+          "description" : "Unique name of project to be created",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project created with selected name",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "409" : {
+            "description" : "Project already exists"
+          }
+        }
+      }
+    },
+    "/addTeammate/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Adds a new teammate to a project",
+        "operationId" : "addTeammate",
+        "description" : "Adds a new teammate with a selected name to a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for teammmate to be added to",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "teammateID",
+          "description" : "Unique name of teammate to be added",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Teammate added",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "405" : {
+            "description" : "Teammate already in project"
+          }
+        }
+      }
+    },
+    "/removeTeammate/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Removes a teammate from a project",
+        "operationId" : "removeTeammate",
+        "description" : "Removes a teammate with a selected name from a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for teammmate to be removed from",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "teammateID",
+          "description" : "Unique name of teammate to be removed",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Teammate removed",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "401" : {
+            "description" : "Teammate not found"
+          },
+          "404" : {
+            "description" : "Project not found"
+          }
+        }
+      }
+    },
+    "/addTask/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Adds task to project",
+        "operationId" : "addTask",
+        "description" : "Adds a task with a selected name to a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for task to be added",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "taskName",
+          "description" : "Name of task to be added",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Task added",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "402" : {
+            "description" : "Task already exists"
+          },
+          "404" : {
+            "description" : "Project not found"
+          }
+        }
+      }
+    },
+    "/splitTask/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Subdivides a task into subtasks",
+        "operationId" : "splitTask",
+        "description" : "Splits a selected task into a subtask with a selected name and redistributes teammates\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for task to be split",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "taskName",
+          "description" : "Name of task to be split",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "numSubTasks",
+          "description" : "Number of new unnamed subtasks to make",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Subtasks added, users split",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "403" : {
+            "description" : "Subtask already exists"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "406" : {
+            "description" : "Task not found"
+          }
+        }
+      }
+    },
+    "/markTask/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Marks a task",
+        "operationId" : "markTask",
+        "description" : "Marks a selected task with a selected marking\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for task to be marked",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "taskName",
+          "description" : "Name of task to be marked",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "mark",
+          "description" : "Mark to be added to the selected task",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Task marked",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "406" : {
+            "description" : "Task not found"
+          },
+          "407" : {
+            "description" : "Task already has selected mark"
+          }
+        }
+      }
+    },
+    "/assignTeammate/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Assigns teammate to a selected task",
+        "operationId" : "assignTeammate",
+        "description" : "Assigns a selected teammate to a selected task in a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for teammate to be assigned",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "taskName",
+          "description" : "Name of task for teammate to be assigned",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "teammateID",
+          "description" : "Unique name of teammate to be assigned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Teammate assigned",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "401" : {
+            "description" : "Teammate not found"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "406" : {
+            "description" : "Task not found"
+          },
+          "408" : {
+            "description" : "Teammate already in selected task"
+          }
+        }
+      }
+    },
+    "/unassignTeammate/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Unassigns teammate from a selected task",
+        "operationId" : "unassignTeammate",
+        "description" : "Unassigns a selected teammate from a selected task in a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for teammate to be unassigned",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "taskName",
+          "description" : "Name of task for teammate to be unassigned",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "teammateID",
+          "description" : "Unique name of teammate to be unassigned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Teammate unassigned",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "401" : {
+            "description" : "Teammate not found"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "406" : {
+            "description" : "Task not found"
+          },
+          "410" : {
+            "description" : "Teammate not in selected task"
+          }
+        }
+      }
+    },
+    "/renameTask/{projectName}" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Renames a selected task",
+        "operationId" : "renameTask",
+        "description" : "Renames a selected task with a selected name\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "projectName",
+          "description" : "Unique name of project for task to be renamed",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "oldTaskName",
+          "description" : "Name of task for to be renamed",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "newTaskName",
+          "description" : "New name to assign task",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Task renamed",
+            "schema" : {
+              "$ref" : "#/definitions/projectData"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "406" : {
+            "description" : "Task not found"
+          },
+          "411" : {
+            "description" : "New task name matches old name"
+          }
+        }
+      }
+    },
+    "/archiveProject" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "Archives selected project",
+        "operationId" : "archiveProject",
+        "description" : "Archives a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "projectID",
+          "description" : "Unique name of project to be archived",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project archived",
+            "schema" : {
+              "$ref" : "#/definitions/projectListResponse"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          },
+          "412" : {
+            "description" : "Project already archived"
+          }
+        }
+      }
+    },
+    "/deleteProject" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "Deletes selected project",
+        "operationId" : "deleteProject",
+        "description" : "Deletes a selected project\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "projectID",
+          "description" : "Unique name of project to be deleted",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project deleted",
+            "schema" : {
+              "$ref" : "#/definitions/projectListResponse"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          },
+          "404" : {
+            "description" : "Project not found"
+          }
+        }
+      }
+    },
+    "/listProjects" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Lists all projects",
+        "operationId" : "listProjects",
+        "description" : "Shows a list of all projects and their relative progress\n",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "Projects list shown",
+            "schema" : {
+              "$ref" : "#/definitions/projectListResponse"
+            }
+          },
+          "400" : {
+            "description" : "Generic error response"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "TeamMate" : {
+      "type" : "object",
+      "required" : [ "name", "taskList" ],
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "taskList" : {
+          "type" : "array",
+          "items" : { }
+        }
+      }
+    },
+    "Task" : {
+      "type" : "object",
+      "required" : [ "name", "outlineID", "isTerminal", "isComplete" ],
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "outlineID" : {
+          "type" : "string"
+        },
+        "teammateList" : {
+          "type" : "array",
+          "items" : { }
+        },
+        "parentTask" : {
+          "type" : "string"
+        },
+        "isTerminal" : {
+          "type" : "boolean"
+        },
+        "isComplete" : {
+          "type" : "boolean"
+        }
+      },
+      "description" : "Data for a task"
+    },
+    "projectData" : {
+      "description" : "Data for the selected project",
+      "type" : "object",
+      "required" : [ "projectID", "error", "statusCode" ],
+      "properties" : {
+        "projectID" : {
+          "type" : "string"
+        },
+        "teammateList" : {
+          "type" : "array",
+          "items" : { }
+        },
+        "taskList" : {
+          "type" : "array",
+          "items" : { }
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "error" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "projectListResponse" : {
+      "type" : "object",
+      "required" : [ "error", "statusCode" ],
+      "properties" : {
+        "projectList" : {
+          "type" : "array",
+          "items" : { }
+        },
+        "error" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "string"
+        }
+      },
+      "description" : "List of projects for admin view"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/teamAch/achGroupProject/1.0.3",
+  "schemes" : [ "https" ],
+  "info" : {
+    "version" : "1.0.5",
+    "title" : "Ach Project Manager",
+    "description" : "API for the Group Project for the team composed of Zach Jester, Zack Koval, Kathryn Stovall, and Jack Rothenberg",
+    "contact" : {
+      "email" : "zjester@wpi.edu"
+    },
+    "termsOfService" : "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  }
+}
