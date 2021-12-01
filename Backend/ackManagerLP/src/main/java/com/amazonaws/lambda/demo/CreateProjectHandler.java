@@ -51,7 +51,7 @@ LambdaLogger logger;
 	
 	@Override 
 	public ProjectData handleRequest(CreateProjectRequest req, Context context)  {
-		/*logger = context.getLogger();
+		logger = context.getLogger();
 		logger.log(req.toString());
 		
 		ProjectData response;
@@ -65,7 +65,7 @@ LambdaLogger logger;
 		} catch (Exception e) {
 			response = new ProjectData("Unable to create constant: " + req.name + "(" + e.getMessage() + ")", null, null, false, 400);
 		}
-		*/
+		
 		return new ProjectData("bob", null, null, false);
 	}
 }

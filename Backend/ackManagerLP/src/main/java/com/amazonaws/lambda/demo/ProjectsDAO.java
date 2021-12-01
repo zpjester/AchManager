@@ -22,7 +22,7 @@ java.sql.Connection conn;
 
 	public boolean addProject(Project constant) throws Exception {
 		try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE name = ?;");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectName = ?;");
             ps.setString(1, constant.projectID);
             ResultSet resultSet = ps.executeQuery();
             
