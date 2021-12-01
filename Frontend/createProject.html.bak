@@ -1,17 +1,16 @@
 
+<!-- saved from url=(0049)https://users.wpi.edu/~heineman/cs509/sample.html -->
 <html>
-<script type='text/javascript' src='../js/newProj.js'></script>
 <head></head>
 <body>
 <h1>Ach (TM) Project Manager </h1>
 <h2>Create a project</h2>
 <br>
 <br> 
-<form name="createProj" method="post">
+<form action="/action_page.php">
   <label for="Pname">Project name:</label>
   <input type="text" id="Pname" value="Enter name here"><br><br>
-  <input type="submit" value="Make New Project" onClick="JavaScript:handleCreateClick(this)">
-
+  <input type="submit" value="Make New Project">
 </form>
 
 <p id = "output"></p>
