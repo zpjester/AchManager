@@ -14,12 +14,12 @@ public class CreateProjectHandler implements RequestHandler<CreateProjectRequest
 LambdaLogger logger;
 	
 	// To access S3 storage
-	private AmazonS3 s3 = null;
+	//private AmazonS3 s3 = null;
 		
 	// Note: this works, but it would be better to move this to environment/configuration mechanisms
 	// which you don't have to do for this project.
-	public static final String REAL_BUCKET = "constants/";
-	
+	//public static final String REAL_BUCKET = "constants/";
+	//
 	/** Store into RDS.
 	 * 
 	 * @throws Exception 
@@ -40,10 +40,6 @@ LambdaLogger logger;
 		}*/
 	}
 	
-	/** Create S3 bucket
-	 * 
-	 * @throws Exception 
-	 */
 	
 	
 	@Override 

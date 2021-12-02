@@ -11,7 +11,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
-public class CreateProjectHandlerTest {
+public class loadProjectTest {
 
     private static Object input;
 
@@ -31,14 +31,13 @@ public class CreateProjectHandlerTest {
     }
 
     @Test
-    public void testCreateProjectHandler() {
-        CreateProjectHandler handler = new CreateProjectHandler();
+    public void testloadProject() {
+        loadProject handler = new loadProject();
         Context ctx = createContext();
 
-//        String output = handler.handleRequest(input, ctx);
+        String output = handler.handleRequest(input, ctx);
 
-        Object output = null;
-		// TODO: validate output here if needed.
+        // TODO: validate output here if needed.
         Assert.assertEquals("Hello from Lambda!", output);
     }
 }
