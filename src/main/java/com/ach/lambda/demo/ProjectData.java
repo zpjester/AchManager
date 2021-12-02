@@ -22,9 +22,37 @@ public class ProjectData {
 //	    this.archived = archived;
 //	    this.system = s;
 //	}
+    public String toString() {
+    	
+    	String archivedString = " is not archived";
+    	String teammatesString = " has no teammates";
+    	String tasksString = " has no tasks";
+    	
+    	if(archived) {
+    		archivedString = " is archived";
+    	}
+    	
+    	
+    	if(teammateList.size() > 0) {
+    		teammatesString = " has teammates ";
+    		for(Teammate li : teammateList) {
+    			teammatesString.concat(li.toString() + ", ");
+    		}
+    	}
+    	if(taskList.size() > 0) {
+    		tasksString = " has tasks ";
+    		for(Task li : taskList) {
+    			tasksString.concat(li.toString() + ", ");
+    		}
+    	}
+    	
+    	String outputString = "Project" + projectID + archivedString + teammatesString + tasksString;
+    	return outputString;
+    }
 	public ProjectData(String projectID) {
 		this.projectID = projectID;
 	    this.teammateList = new LinkedList<Teammate>();
+	    this.teammateList.add(new Teammate("testMate"));
 	    this.taskList = new LinkedList<Task>();
 	    this.archived = false;
 	}

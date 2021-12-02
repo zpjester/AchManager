@@ -8,7 +8,7 @@ function processCreateResponse(result) {
   // refreshProjectsList();
 
   var paragraph = document.getElementById("output");
-   paragraph.value = result;
+   paragraph.innerHTML = result;
 }
 
 function handleCreateClick(e) {
@@ -32,6 +32,8 @@ function handleCreateClick(e) {
   xhr.open("POST", projURL, true);
   console.log("Post request sent!");
 
+	xhr.send();
+
 
   // This will process results and update HTML as appropriate. 
   xhr.onloadend = function () {
@@ -40,7 +42,7 @@ function handleCreateClick(e) {
     console.log(xhr.request);
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
-	      console.log ("XHR:" + xhr.responseText);
+	      //console.log ("XHR:" + xhr.responseText);
 	      processCreateResponse(xhr.responseText);
     	 } else {
     		 console.log("actual:" + xhr.responseText)
