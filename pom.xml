@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.amazonaws.lambda</groupId>
+  <groupId>com.ach.lambda</groupId>
   <artifactId>demo</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
@@ -55,7 +55,11 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-
+	<dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.26</version>
+    </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-lambda-java-events</artifactId>
