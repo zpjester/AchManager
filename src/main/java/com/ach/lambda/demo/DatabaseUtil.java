@@ -27,7 +27,7 @@ public class DatabaseUtil {
 	public final static String multiQueries = "?allowMultiQueries=true";
 	   
 	public final static String dbName = "mydb";           // Whatever Schema you created in tutorial.
-	public final static String testingName = "tmp";       // used for testing (also default created)
+	public final static String testingName = "mydb";       // used for testing (also default created)
 	
 	// pooled across all usages.
 	static Connection conn;
