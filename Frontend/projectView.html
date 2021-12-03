@@ -1,12 +1,26 @@
+
 <html>
-    <script type='text/javascript' src='../js/loadProject.js'></script>
-    <body>
-        <a id="switchLink" href="" onload="JavaScript:getProjectData()">Switch View</a>
-        <h1 id="projectName"> Project Name </h1>
-        <p id="tasks">No tasks have been added to this project</p>
-        <form id="newTask" method="post">
-            <input id="taskName" value="" name="taskName">
-            <input value="+ New Task" type="submit">
-        </form>
-    </body>
-</html>
+
+<head>
+<script type = 'text/javascript' src = '../JS/loadProject.js'></script>
+<script type = 'text/javascript' src = '../JS/api.js'></script>
+
+
+</head>
+
+<body>
+<h1>Ach (TM) Project Manager </h1>
+<h2>Create a project</h2>
+<br>
+<br> 
+<form name="loadProj" method="get">
+  <label for="Pname">Project name:</label>
+  <input type="text" id="projectName" placeholder="Enter name here"><br><br>
+  <input type="button" value="Load Project" onClick="JavaScript:handleLoadClick(this)">
+
+</form>
+
+<p id = "output"></p>
+
+
+</body></html>
