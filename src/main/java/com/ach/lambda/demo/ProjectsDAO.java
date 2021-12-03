@@ -68,6 +68,34 @@ java.sql.Connection conn;
             throw new Exception("getProject Failed in getting project: " + e.getMessage());
         }
 	}
+	public ProjectList getProjectList(String name) throws Exception {
+        try {
+            ProjectList constant = null;
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName);
+            ps.setString(1,  name);
+            ResultSet resultSet = ps.executeQuery();
+            
+            while (resultSet.next()) {
+                constant = generateProjectList(resultSet);
+            }
+            resultSet.close();
+            ps.close();
+            
+            return constant;
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+            throw new Exception("getProject Failed in getting project: " + e.getMessage());
+        }
+	}
+	private ProjectList generateProjectList(ResultSet resultSet) throws SQLException {
+		Project[] projs = new Project[resultSet.getFetchSize()];
+		while(resultSet.next()){
+			projs[resultSet.getRow()-1] = new Project(resultSet.getString(1), resultSet.getBoolean(2));
+		}
+		return new ProjectList(projs);
+	}
+
 	public ProjectData getProjectData(String name) throws Exception {
 		
 		try {
