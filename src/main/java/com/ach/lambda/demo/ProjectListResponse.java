@@ -5,18 +5,18 @@ public class ProjectListResponse {
 	private String error;
 	private String statusCode;
 
-	public Project (Project[] projects, String error, String statusCode) {
-		this.projects = projects;
+	public ProjectListResponse (Project[] projectList, String error, String statusCode) {
+		this.projectList = projectList;
 		this.error = error;
 		this.statusCode = statusCode;
 	}
 
 	public Project[] getProjects() {
-		return this.projects;
+		return this.projectList;
 	}
 
-	public void setProjects(Project[] projects) {
-		this.projects = projects;
+	public void setProjects(Project[] projectList) {
+		this.projectList = projectList;
 	}
 
 	public String getError() {
