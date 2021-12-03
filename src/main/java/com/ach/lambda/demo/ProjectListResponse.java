@@ -5,8 +5,9 @@ public class ProjectListResponse {
 	private String error;
 	private String statusCode;
 
-	public ProjectListResponse (Project[] projects, String error, String statusCode) {
-		this.projectList = projects;
+
+	public ProjectListResponse (Project[] projectList, String error, String statusCode) {
+		this.projectList = projectList;
 		this.error = error;
 		this.statusCode = statusCode;
 	}
