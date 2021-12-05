@@ -8,7 +8,13 @@ function processLoadResponse(result) {
   // refreshProjectsList();
 
   var paragraph = document.getElementById("output");
-   paragraph.innerHTML = result;
+
+  paragraph.innerHTML = result;
+
+  var node = document.createElement("LI");
+  var textnode = document.createTextNode("TASK");
+  node.appendChild(textnode);
+  document.getElementById("output").appendChild(node);
 }
 
 function handleLoadClick(e) {
