@@ -68,11 +68,10 @@ java.sql.Connection conn;
             throw new Exception("getProject Failed in getting project: " + e.getMessage());
         }
 	}
-	public ProjectList getProjectList(String name) throws Exception {
+	public ProjectList getProjectList() throws Exception {
         try {
             ProjectList constant = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName);
-            ps.setString(1,  name);
             ResultSet resultSet = ps.executeQuery();
             
             while (resultSet.next()) {

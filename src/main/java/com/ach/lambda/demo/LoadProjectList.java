@@ -4,20 +4,20 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-public class LoadProjectResponse implements RequestHandler<ProjectList> {
+public class LoadProjectList implements RequestHandler<String, ProjectListResponse> {
 	LambdaLogger logger;
     @Override
-    public ProjectList handleRequest(Context context) {
+    public ProjectListResponse handleRequest(String s, Context context) {
 
         logger = context.getLogger();
 		
-		logger.log("input" + input + "\n");
+		logger.log("input" + s + "\n");
 		
 		ProjectListResponse response = null;
 		
 		try {
 			ProjectsDAO dao = new ProjectsDAO();
-			response = dao.getProjectList();
+			response = new ProjectListResponse(dao.getProjectList().getProjects(), null, "200");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
