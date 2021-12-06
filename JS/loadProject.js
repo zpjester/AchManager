@@ -9,8 +9,11 @@ function processLoadResponse(result) {
 
   var paragraph = document.getElementById("output");
   var orderedList = document.getElementById("taskList");
-
   paragraph.innerHTML = result.projectID;
+  var taskForm = document.getElementById("addTaskForm");
+  taskForm.removeAttribute("hidden");
+  var teammateForm = document.getElementById("addTeammateForm");
+  teammateForm.removeAttribute("hidden");
 
   for (let i = 0; i < result.taskList.length; i++) {
     var node = document.createElement("li");
@@ -18,14 +21,26 @@ function processLoadResponse(result) {
     node.appendChild(textnode);
     document.getElementById("taskList").appendChild(node);
   }
+  
+  for (let i = 0; i < result.teammateList.length; i++) {
+    var node = document.createElement("li");
+    var textnode = document.createTextNode(result.teammateList[i].name);
+    node.appendChild(textnode);
+    document.getElementById("teammateList").appendChild(node);
+  }
+  
 }
 
 function handleLoadClick(e) {
-  var form = document.loadProj;
+	var form = document.loadProj;
+	var name = form.projectName.value;
+	loadProject(name);
+	}
+	
+function loadProject(projName){
+  
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 
-  var data = {};
-  data["projectID"] = form.projectName.value;
   
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
@@ -34,7 +49,7 @@ function handleLoadClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = projectView_url + "/" + form.projectName.value;
+  var projURL = projectView_url + "/" + projName;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open GET at " + projURL);
@@ -48,7 +63,7 @@ function handleLoadClick(e) {
   xhr.onloadend = function () {
     console.log("Load ended")
     console.log(xhr);
-    console.log(xhr.responseText);
+    console.log(xhr.responseType);
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
@@ -64,4 +79,3 @@ function handleLoadClick(e) {
     }
   };
 }
-

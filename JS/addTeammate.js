@@ -1,19 +1,28 @@
 
 
-function processCreateResponse(projName) {
+function processAddTeammateResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its
   // contents dynamically via javascript
-  console.log("Process created, loading now!");
-	
-	loadProject(projName);
+  console.log("result:" + result);
+
+  // refreshProjectsList();
+
+  var paragraph = document.getElementById("output");
+   paragraph.innerHTML = result;
+  var teammateList = document.getElementById("teammateList");
+  var node = document.createElement("li");
+  var textnode = document.createTextNode(result.name);
+  node.appendChild(textnode);
+  document.getElementById("teammateList").appendChild(node);
 }
 
-function handleCreateClick(e) {
+function handleAddTeammateClick(e) {
   var form = document.createProj;
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 
   var data = {};
   data["projectID"] = form.projectName.value;
+  data["teammateID"] = form.teammateID.value;
   
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
@@ -40,7 +49,7 @@ function handleCreateClick(e) {
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
-	      processCreateResponse(form.projectName.value);
+	      processAddTeammateResponse(xhr.responseText);
     	 } else {
     		 console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
@@ -48,7 +57,7 @@ function handleCreateClick(e) {
 			  alert (err);
     	 }
     } else {
-      processCreateResponse("N/A");
+      processTeammateResponse("N/A");
     }
   };
 }
