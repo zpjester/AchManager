@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html> 
-<script type='text/javascript' src='../js/getProjectsList.js'></script>
+<script type='text/javascript' src='../JS/getProjectsList.js'></script>
+<script type='text/javascript' src='../JS/api.js'></script>
 <head>
 </head> 
 <body> 
 <h1>Admin View</h1> 
-<p id = "projectList" onload="JavaScript:refreshProjectsList()"></p>
+<p id = "projectList"></p>
+<script>
+function process() {
+	refreshProjectsList();	
+}
+process();
+</script>
 </body>
 </html>

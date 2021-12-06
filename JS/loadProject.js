@@ -8,14 +8,15 @@ function processLoadResponse(result) {
   // refreshProjectsList();
 
   var paragraph = document.getElementById("output");
+  var orderedList = document.getElementById("taskList");
 
   paragraph.innerHTML = result.projectID;
 
-  for (let i = 0; i < result.taskList.size; i++) {
-    var node = document.createElement("LI");
+  for (let i = 0; i < result.taskList.length; i++) {
+    var node = document.createElement("li");
     var textnode = document.createTextNode(result.taskList[i].name);
     node.appendChild(textnode);
-    document.getElementById("output").appendChild(node);
+    document.getElementById("taskList").appendChild(node);
   }
 }
 

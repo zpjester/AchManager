@@ -6,7 +6,7 @@
  */
  function refreshProjectsList() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", list_url, true);
+    xhr.open("GET", listProjects_URL, true);
     xhr.send();
     
     console.log("sent");
@@ -28,13 +28,14 @@
   * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
   */
  function processListResponse(result) {
+	
    console.log("res:" + result);
    // Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
    var js = JSON.parse(result);
    var projectsList = document.getElementById('projectList');
    
    var output = "";
-   for (var i = 0; i < js.list.length; i++) {
+   for (let i = 0; i < js.list.length; i++) {
      var listJson = js.list[i];
      console.log(listJson);
      
@@ -44,5 +45,5 @@
    }
  
    // Update computation result
-   projectsList.innerHTML = output;
+   projectsList.innerHTML = "TESTING";
  }
