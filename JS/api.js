@@ -5,7 +5,7 @@ var projectView_url    = base_url + "/projectView";   // GET
 var teamView_url   = base_url + "";    // GET
 var createProject_url = base_url + "/createProject"; // POST
 var addTeammate_url = base_url + "/addTeammate";    // POST
-var removeTeammate_url = base_url + "";    // POST
+var removeTeammate_url = base_url + "/removeTeammate";    // POST
 
 var addTask_url = base_url + "/addTask";    // POST
 var splitTask_URL = base_url + ""; // POST

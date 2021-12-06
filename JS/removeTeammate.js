@@ -1,6 +1,6 @@
 
 
-function processAddTeammateResponse(result) {
+function processRemoveTeammateResponse(result) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its
   // contents dynamically via javascript
   console.log("result:" + result);
@@ -16,7 +16,7 @@ function processAddTeammateResponse(result) {
   document.getElementById("teammateList").appendChild(node);
 }
 
-function handleAddTeammateClick(e) {
+function handleRemoveTeammateClick(e) {
   var form = document.getElementById("addTeammateForm");
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 	var output = document.getElementById("output");
@@ -31,7 +31,7 @@ function handleAddTeammateClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTeammate_url + "/" + projName + "?teammateID="+form.teammateName.value;
+  var projURL = removeTeammate_url + "/" + projName + "?teammateID="+form.teammateName.value;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -50,13 +50,7 @@ function handleAddTeammateClick(e) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
 	      //processAddTeammateResponse(xhr.responseText);
-		if(xhr.response.code == 200){
-			loadProject(projName);
-		} else{
-			alert("Cannot add " + form.teammateName.value + ", already exists");
-			loadProject(projName);
-		}
-		
+		loadProject(projName);
     	 }
   };
 }

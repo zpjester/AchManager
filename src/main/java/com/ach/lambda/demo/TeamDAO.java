@@ -98,7 +98,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
         
         // already present?
         while (resultSet.next()) {
-        	 ps = conn.prepareStatement("DELETE FROM " + tblName1 + " WHERE MEMDERid = ?");//MEMDER?
+        	 ps = conn.prepareStatement("DELETE FROM " + tblName1 + " WHERE MEMDERSid = ?");//MEMDER?
              ps.setString(1, resultSet.getString(1));
 //             ps.setBoolean(2,  constant.isArchived);
              ps.execute();
