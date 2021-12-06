@@ -76,10 +76,10 @@ public class TaskDAO {
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;");
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
-        while (!resultSet.isAfterLast()) {
+        while (resultSet.next()) {
             constant.add(new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),
             				new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(6),resultSet.getBoolean(7)));
-           resultSet.next();
+           //resultSet.next();
         }
         resultSet.close();
         ps.close();

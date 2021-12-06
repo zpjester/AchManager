@@ -26,7 +26,7 @@ public class TeamDAO {
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
-            members.add(getTeammate(resultSet.getString("Name")));
+            members.add(new Teammate(resultSet.getString(2)));
         }
 		return members;
 		
