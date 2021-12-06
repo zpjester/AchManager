@@ -93,6 +93,7 @@ public class ProjectsDAO {
 		resultSet.next();
 		if(!resultSet.isAfterLast()){
 			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2)));
+			resultSet.next();
 		}
 		return new ProjectList(projs);
 	}
