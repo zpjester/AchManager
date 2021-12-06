@@ -62,8 +62,7 @@ public class TaskDAO {
             if (resultSet.next()) {
                 constant = generateTask(resultSet);
             }
-            resultSet.close();
-            ps.close();
+            
             
             return constant;
 
@@ -81,7 +80,8 @@ public class TaskDAO {
             constant.add(getTask(resultSet.getString("Name"), p));
            // resultSet.next();
         }
-        
+        resultSet.close();
+        ps.close();
 		return constant;
 		
 	}
