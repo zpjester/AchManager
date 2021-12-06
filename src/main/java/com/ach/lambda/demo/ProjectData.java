@@ -64,10 +64,10 @@ public class ProjectData {
     	int teammateCount = teammateList.size();
     	JSONObject[] teammateArray = new JSONObject[teammateCount];
     	for(int i = 0; i < teammateCount; i++) {
-    		teammateArray[i] = fakeTeammate;
+//    		teammateArray[i] = fakeTeammate;
     				
     				
-    				//teammateList.get(i).toJSON();
+    				teammateList.get(i).toJSON();
     	}
     	JSONObject[] teammateArray2 = new JSONObject[1];
     	teammateArray2[0] = new Teammate("Test teammate").toJSON();

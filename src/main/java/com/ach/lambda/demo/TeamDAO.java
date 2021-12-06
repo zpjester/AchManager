@@ -30,6 +30,7 @@ public class TeamDAO {
         }
 		resultSet.close();
 		ps.close();
+		members.add(new Teammate("Trumbus"));
 		return members;
 
 		
