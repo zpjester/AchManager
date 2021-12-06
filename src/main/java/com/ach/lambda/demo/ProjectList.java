@@ -1,17 +1,19 @@
 package com.ach.lambda.demo;
 
-public class ProjectList {
-	private Project[] projects;
+import java.util.LinkedList;
 
-	public ProjectList (Project[] projects) {
+public class ProjectList {
+	private LinkedList<Project> projects;
+
+	public ProjectList (LinkedList<Project> projects) {
 		this.projects = projects;
 	}
 
-	public Project[] getProjects() {
+	public LinkedList<Project> getProjects() {
 		return this.projects;
 	}
 
-	public void setProjects(Project[] projects) {
+	public void setProjects(LinkedList<Project> projects) {
 		this.projects = projects;
 	}
 }

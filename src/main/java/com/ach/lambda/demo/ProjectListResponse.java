@@ -1,22 +1,24 @@
 package com.ach.lambda.demo;
 
+import java.util.LinkedList;
+
 public class ProjectListResponse {
-	private Project[] projectList;
+	private LinkedList<Project> projectList;
 	private String error;
 	private String statusCode;
 
 
-	public ProjectListResponse (Project[] projectList, String error, String statusCode) {
-		this.projectList = projectList;
+	public ProjectListResponse (LinkedList<Project> linkedList, String error, String statusCode) {
+		this.projectList = linkedList;
 		this.error = error;
 		this.statusCode = statusCode;
 	}
 
-	public Project[] getProjects() {
+	public LinkedList<Project> getProjects() {
 		return this.projectList;
 	}
 
-	public void setProjects(Project[] projects) {
+	public void setProjects(LinkedList<Project> projects) {
 		this.projectList = projects;
 	}
 
