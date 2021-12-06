@@ -14,22 +14,31 @@ public class Task {
 	public boolean isComplete;
 	
 	public Task(String n, String o, LinkedList<Teammate> t, String p, boolean term, boolean com) {
-		name = n;
-		tasksID = UUID.randomUUID().toString().replace("-", "");
-		outlineID = o;
-		teammateList = t;
-		parentTask = p;
-		isTerminal = term;
-		isComplete = com;
+		this.name = n;
+		this.tasksID = UUID.randomUUID().toString().replace("-", "");
+		this.outlineID = o;
+		this.teammateList = t;
+		this.parentTask = p;
+		this.isTerminal = term;
+		this.isComplete = com;
 	}
 	public Task(String u,String n, String o, LinkedList<Teammate> t, String p, boolean term, boolean com) {
-		name = n;
-		tasksID = u;
-		outlineID = o;
-		teammateList = t;
-		parentTask = p;
-		isTerminal = term;
-		isComplete = com;
+		this.name = n;
+		this.tasksID = u;
+		this.outlineID = o;
+		this.teammateList = t;
+		this.parentTask = p;
+		this.isTerminal = term;
+		this.isComplete = com;
+	}
+	public Task(String n) {
+		this.outlineID = "-1";
+		this.name = n;
+		this.tasksID = UUID.randomUUID().toString().replace("-", "");
+		this.teammateList = new LinkedList<Teammate>();
+		this.parentTask = "";
+		this.isTerminal = false;
+		this.isComplete = false;
 	}
 	
 	public JSONObject toJSON(){

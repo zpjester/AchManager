@@ -57,18 +57,28 @@ public class ProjectData {
     public JSONObject toJSON() {
     	JSONObject result = new JSONObject();
     	result.put("projectID", projectID);
+    	
+    	JSONObject fakeTeammate = new JSONObject();
+    	fakeTeammate.put("name", "Steve");
+    	
     	int teammateCount = teammateList.size();
     	JSONObject[] teammateArray = new JSONObject[teammateCount];
     	for(int i = 0; i < teammateCount; i++) {
-    		teammateArray[i] = teammateList.get(i).toJSON();
+    		teammateArray[i] = fakeTeammate;
+    				
+    				
+    				//teammateList.get(i).toJSON();
     	}
-    	result.put("teammateList", teammateArray);
+    	JSONObject[] teammateArray2 = new JSONObject[1];
+    	teammateArray2[0] = new Teammate("Test teammate").toJSON();
+    	result.put("teammateList", teammateArray); //Change this
     	
     	int taskCount = taskList.size();
     	JSONObject[] taskArray = new JSONObject[taskCount];
     	for(int i = 0; i < taskCount; i++) {
     		taskArray[i] = taskList.get(i).toJSON();
     	}
+//    	taskArray[taskCount + 1] = new Task("Test Task for display purposes","0", new LinkedList<Teammate>(), "", false, false).toJSON();
     	result.put("taskList", taskArray);
     	
     	result.put("archived", archived);   
@@ -88,6 +98,13 @@ public class ProjectData {
 	    this.taskList = new LinkedList<Task>();
 	    this.archived = false;
 	    this.system = code;
+	}
+	
+	public ProjectData(String projectID, LinkedList<Teammate> teammateList, LinkedList<Task> taskList) {
+		this.projectID = projectID;
+	    this.teammateList = teammateList;
+	    this.taskList = taskList;
+	    this.archived = false;
 	}
 	
 	

@@ -25,7 +25,7 @@ function processLoadResponse(result) {
   for (let i = 0; i < result.teammateList.length; i++) {
     var node = document.createElement("li");
     var textnode = document.createTextNode(result.teammateList[i].name);
-    node.appendChild(textnode);
+    //node.appendChild(textnode);
     document.getElementById("teammateList").appendChild(node);
   }
   

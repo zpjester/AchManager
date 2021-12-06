@@ -28,7 +28,10 @@ public class TeamDAO {
         while (resultSet.next()) {
             members.add(new Teammate(resultSet.getString(2)));
         }
+		resultSet.close();
+		ps.close();
 		return members;
+
 		
 	}
 	private Teammate getTeammate(String name) {

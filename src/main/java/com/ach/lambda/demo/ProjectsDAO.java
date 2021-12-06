@@ -74,7 +74,6 @@ public class ProjectsDAO {
             ProjectList constant = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName);
             ResultSet resultSet = ps.executeQuery();
-            resultSet.next();
             if (!resultSet.isAfterLast()) {
                 constant = generateProjectList(resultSet);
             }

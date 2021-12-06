@@ -74,6 +74,8 @@ public class TaskDAO {
 	public LinkedList<Task> getTaskList(String p) throws Exception{
 		LinkedList<Task> constant = new LinkedList<Task>();
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;");
+//		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName);
+		
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
@@ -83,6 +85,7 @@ public class TaskDAO {
         }
         resultSet.close();
         ps.close();
+//        constant.add(new Task("Test Task"));
 		return constant;
 		
 	}
