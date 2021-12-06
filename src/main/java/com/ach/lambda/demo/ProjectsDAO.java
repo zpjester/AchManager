@@ -91,7 +91,7 @@ public class ProjectsDAO {
 	private ProjectList generateProjectList(ResultSet resultSet) throws SQLException {
 		LinkedList<Project> projs = new LinkedList<Project>();
 		resultSet.next();
-		if(!resultSet.isAfterLast()){
+		while(!resultSet.isAfterLast()){
 			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2)));
 			resultSet.next();
 		}
