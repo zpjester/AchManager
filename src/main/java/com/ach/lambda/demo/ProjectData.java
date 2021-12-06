@@ -59,15 +59,15 @@ public class ProjectData {
     	result.put("projectID", projectID);
     	int teammateCount = teammateList.size();
     	JSONObject[] teammateArray = new JSONObject[teammateCount];
-    	for(int i = 0; i < this.teammateList.size(); i++) {
+    	for(int i = 0; i < teammateCount; i++) {
     		teammateArray[i] = teammateList.get(i).toJSON();
     	}
     	result.put("teammateList", teammateArray);
     	
     	int taskCount = taskList.size();
     	JSONObject[] taskArray = new JSONObject[taskCount];
-    	for(int i = 0; i < this.taskList.size(); i++) {
-    		teammateArray[i] = taskList.get(i).toJSON();
+    	for(int i = 0; i < taskCount; i++) {
+    		taskArray[i] = taskList.get(i).toJSON();
     	}
     	result.put("taskList", taskArray);
     	

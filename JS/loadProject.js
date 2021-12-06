@@ -48,7 +48,7 @@ function handleLoadClick(e) {
   xhr.onloadend = function () {
     console.log("Load ended")
     console.log(xhr);
-    console.log(xhr.responseType);
+    console.log(xhr.responseText);
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);

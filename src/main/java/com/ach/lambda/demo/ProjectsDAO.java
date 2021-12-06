@@ -74,8 +74,8 @@ public class ProjectsDAO {
             ProjectList constant = null;
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName);
             ResultSet resultSet = ps.executeQuery();
-            
-            while (resultSet.next()) {
+            resultSet.next();
+            if (!resultSet.isAfterLast()) {
                 constant = generateProjectList(resultSet);
             }
             resultSet.close();
@@ -90,7 +90,8 @@ public class ProjectsDAO {
 	}
 	private ProjectList generateProjectList(ResultSet resultSet) throws SQLException {
 		LinkedList<Project> projs = new LinkedList<Project>();
-		while(resultSet.next()){
+		resultSet.next();
+		if(!resultSet.isAfterLast()){
 			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2)));
 		}
 		return new ProjectList(projs);
@@ -103,8 +104,8 @@ public class ProjectsDAO {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectName=?;");
             ps.setString(1,  name);
             ResultSet resultSet = ps.executeQuery();
-            
-            while (resultSet.next()) {
+            resultSet.next();
+            if (!resultSet.isAfterLast()) {
                 constant = generateProjectData(resultSet);
             }
             resultSet.close();
