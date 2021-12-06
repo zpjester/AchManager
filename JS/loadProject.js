@@ -32,11 +32,15 @@ function processLoadResponse(result) {
 }
 
 function handleLoadClick(e) {
-  var form = document.loadProj;
+	var form = document.loadProj;
+	var name = form.projectName.value;
+	loadProject(name);
+	}
+	
+function loadProject(projName){
+  
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 
-  var data = {};
-  data["projectID"] = form.projectName.value;
   
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
@@ -45,7 +49,7 @@ function handleLoadClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = projectView_url + "/" + form.projectName.value;
+  var projURL = projectView_url + "/" + projName;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open GET at " + projURL);
