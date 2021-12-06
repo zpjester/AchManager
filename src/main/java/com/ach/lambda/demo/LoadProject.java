@@ -4,10 +4,10 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-public class LoadProject implements RequestHandler<LoadProjectRequest, ProjectData> {
+public class LoadProject implements RequestHandler<LoadProjectRequest, String> {
 	LambdaLogger logger;
     @Override
-    public ProjectData handleRequest(LoadProjectRequest input, Context context) {
+    public String handleRequest(LoadProjectRequest input, Context context) {
 
         logger = context.getLogger();
 		
@@ -27,7 +27,7 @@ public class LoadProject implements RequestHandler<LoadProjectRequest, ProjectDa
 			response = new ProjectData("Project " + input.projectID + " not found", 404);
 		}
 		
-        return response;
+        return response.toString();
     }
 
 }

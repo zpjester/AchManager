@@ -43,7 +43,7 @@ LambdaLogger logger;
 	
 	
 	@Override 
-	public ProjectData handleRequest(CreateProjectRequest req, Context context)  {
+	public String handleRequest(CreateProjectRequest req, Context context)  {
 		logger = context.getLogger();
 		
 		logger.log("Project ID: " + req.toString() + "\n");
