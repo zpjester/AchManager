@@ -26,6 +26,8 @@ public class LoadProject implements RequestHandler<LoadProjectRequest, JSONObjec
 		try {
 			TaskDAO taskDao = new TaskDAO();
 			response.setTaskList(taskDao.getTaskList(response.getProjectID()));
+			TeamDAO teamDAO = new TeamDAO();
+			response.setTeammateList(teamDAO.getTeammateList(response.getProjectID()));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
