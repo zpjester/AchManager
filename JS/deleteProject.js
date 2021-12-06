@@ -1,13 +1,10 @@
 
-
-function handleAddTeammateClick(e) {
-  var form = document.getElementById("addTeammateForm");
+function handleDeleteProjectClick(e) {
   // console.log("Creating project with " + e.createForm.JSON.stringify);
-	var output = document.getElementById("output");
-	var projName = output.innerText;
-  
-  console.log(projName);
-  
+  var form = document.createProj;
+  // console.log("Creating project with " + e.createForm.JSON.stringify);
+  var data = {};
+  data["projectID"] = form.projectName.value;
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
   // }
@@ -15,7 +12,7 @@ function handleAddTeammateClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTeammate_url + "/" + projName + "?teammateID="+form.teammateName.value;
+  var projURL = deleteProject_url + "?projectID=" + form.projectName.value;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -34,18 +31,7 @@ function handleAddTeammateClick(e) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
 	      //processAddTeammateResponse(xhr.responseText);
-
-		var response = xhr.response;
-		var responseObj = JSON.parse(xhr.response);
-		console.log("response: " + responseObj);
-		console.log("Code: " + responseObj.code);
-		if(responseObj.code == 200){
-			loadProject(projName);
-		} else{
-			alert("Cannot add " + form.teammateName.value + ", already exists");
-			loadProject(projName);
-		}
-		
+		loadProject(projName);
     	 }
   };
 }

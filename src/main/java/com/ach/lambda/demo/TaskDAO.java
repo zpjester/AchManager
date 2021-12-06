@@ -68,12 +68,19 @@ public class TaskDAO {
             }
             String outline;
             try {
-            ps = conn.prepareStatement("select MAX(Outline) as mostRecent FROM mydb.TASKS (WHERE ProjectID = ? and ParentTask = ?);");
-            outline = String.valueOf(Integer.valueOf(ps.executeQuery().getString("mostRecent")) + 1);
+            ps = conn.prepareStatement("select MAX(OutlineID) as mostRecent FROM mydb.TASKS WHERE ProjectID = ? and ParentTask is ?;");
+            ps.setString(1, p);
+            ps.setString(2, null);
+            resultSet = ps.executeQuery();
+            resultSet.next();
+            outline = String.valueOf(Integer.valueOf(resultSet.getString("mostRecent")) + 1);
             }
             catch(Exception e) {
             	outline = "1";
             }
+            
+            
+
             ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, null, 0, 1);");
             ps.setString(1,  UUID.randomUUID().toString().replace("-", ""));
             ps.setString(2,  task);
@@ -87,7 +94,7 @@ public class TaskDAO {
             
 
         } catch (Exception e) {
-            throw new Exception("Failed to create project: " + e.getMessage());
+            throw new Exception("Failed to add task: " + e.getMessage());
         }
 	}
 	public Task getTask(String t, String p) throws Exception {

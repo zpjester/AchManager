@@ -76,7 +76,8 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
             return false;
         }
 
-        ps = conn.prepareStatement("INSERT INTO " + tblName1 + " (MEMDERSid, Name, Pid) values(?,?, (SELECT ProjectName from mydb.PROJECTS WHERE ProjectName='?'));");
+        ps = conn.prepareStatement("INSERT INTO " + tblName1 + " (MEMDERSid, Name, Pid) values(?,?, (SELECT ProjectName from mydb.PROJECTS WHERE ProjectName=?));");
+//        ps = conn.prepareStatement("INSERT INTO " + tblName1 + " (MEMDERSid, Name, Pid) values(?,?,?);");
         ps.setString(1, UUID.randomUUID().toString().replace("-", ""));
         ps.setString(2, name);
         ps.setString(3, p);
@@ -97,7 +98,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
         
         // already present?
         while (resultSet.next()) {
-        	 ps = conn.prepareStatement("DELETE FROM " + tblName1 + " WHERE MEMDERid = ?");
+        	 ps = conn.prepareStatement("DELETE FROM " + tblName1 + " WHERE MEMDERSid = ?");//MEMDER?
              ps.setString(1, resultSet.getString(1));
 //             ps.setBoolean(2,  constant.isArchived);
              ps.execute();

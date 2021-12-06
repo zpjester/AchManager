@@ -1,7 +1,5 @@
-
-
-function handleAddTeammateClick(e) {
-  var form = document.getElementById("addTeammateForm");
+function handleAddTaskClick(e) {
+  var form = document.getElementById("addTaskForm");
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 	var output = document.getElementById("output");
 	var projName = output.innerText;
@@ -15,7 +13,7 @@ function handleAddTeammateClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTeammate_url + "/" + projName + "?teammateID="+form.teammateName.value;
+  var projURL = addTask_url + "/" + projName + "?taskID="+form.taskName.value;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -34,19 +32,15 @@ function handleAddTeammateClick(e) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
 	      //processAddTeammateResponse(xhr.responseText);
-
-		var response = xhr.response;
-		var responseObj = JSON.parse(xhr.response);
-		console.log("response: " + responseObj);
-		console.log("Code: " + responseObj.code);
-		if(responseObj.code == 200){
-			loadProject(projName);
-		} else{
-			alert("Cannot add " + form.teammateName.value + ", already exists");
-			loadProject(projName);
-		}
-		
+		loadProject(projName);
+    	 } else {
+    		 console.log("actual:" + xhr.responseText)
+			  var js = JSON.parse(xhr.responseText);
+			  var err = js["response"];
+			  alert (err);
     	 }
+    } else {
+      processAddTaskResponse("N/A");
+    }
   };
-}
 }

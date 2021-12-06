@@ -38,6 +38,7 @@ LambdaLogger logger;
 		} else {
 			return false;
 		}*/
+//		return false;
 	}
 	
 	
@@ -67,6 +68,7 @@ LambdaLogger logger;
 			}
 		} catch (Exception e) {
 			code = "420";
+			e.printStackTrace();
 			
 		}
 		response.put("code", code);
