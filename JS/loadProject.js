@@ -8,12 +8,22 @@ function processLoadResponse(result) {
   // refreshProjectsList();
 
   var paragraph = document.getElementById("output");
-  var orderedList = document.getElementById("taskList");
+  var taskList = document.getElementById("taskList");
+  var teammateList = document.getElementById("teammateList");
+
   paragraph.innerHTML = result.projectID;
   var taskForm = document.getElementById("addTaskForm");
   taskForm.removeAttribute("hidden");
   var teammateForm = document.getElementById("addTeammateForm");
   teammateForm.removeAttribute("hidden");
+
+
+	while(taskList.firstChild){
+		taskList.removeChild(taskList.firstChild);
+	}
+	while(teammateList.firstChild){
+		teammateList.removeChild(teammateList.firstChild);
+	}
 
   for (let i = 0; i < result.taskList.length; i++) {
     var node = document.createElement("li");
@@ -25,7 +35,7 @@ function processLoadResponse(result) {
   for (let i = 0; i < result.teammateList.length; i++) {
     var node = document.createElement("li");
     var textnode = document.createTextNode(result.teammateList[i].name);
-    //node.appendChild(textnode);
+    node.appendChild(textnode);
     document.getElementById("teammateList").appendChild(node);
   }
   
