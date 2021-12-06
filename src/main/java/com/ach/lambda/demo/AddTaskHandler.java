@@ -28,7 +28,7 @@ LambdaLogger logger;
 		if (logger != null) { logger.log("in addTask \n"); }
 
 		TaskDAO dao = new TaskDAO();
-		//return dao.addTask(name, projectID);
+		return dao.addTask(name, projectID);
 		/*
 		// check if present
 		Project exist = dao.getProject(name);
@@ -38,7 +38,7 @@ LambdaLogger logger;
 		} else {
 			return false;
 		}*/
-		return false;
+//		return false;
 	}
 	
 	
@@ -68,6 +68,7 @@ LambdaLogger logger;
 			}
 		} catch (Exception e) {
 			code = "420";
+			e.printStackTrace();
 			
 		}
 		response.put("code", code);

@@ -13,7 +13,7 @@ function handleAddTaskClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTask_url + "/" + projName + "?taskName="+form.taskName.value;
+  var projURL = addTask_url + "/" + projName + "?taskID="+form.taskName.value;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);

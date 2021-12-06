@@ -34,7 +34,12 @@ function handleAddTeammateClick(e) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
 	      //processAddTeammateResponse(xhr.responseText);
-		if(xhr.response.code == 200){
+
+		var response = xhr.response;
+		var responseObj = JSON.parse(xhr.response);
+		console.log("response: " + responseObj);
+		console.log("Code: " + responseObj.code);
+		if(responseObj.code == 200){
 			loadProject(projName);
 		} else{
 			alert("Cannot add " + form.teammateName.value + ", already exists");
