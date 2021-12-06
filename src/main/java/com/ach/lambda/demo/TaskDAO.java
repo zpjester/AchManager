@@ -66,8 +66,14 @@ public class TaskDAO {
                 resultSet.close();
                 return false;
             }
+            String outline;
+            try {
             ps = conn.prepareStatement("select MAX(Outline) as mostRecent FROM mydb.TASKS (WHERE ProjectID = ? and ParentTask = ?);");
-            String outline = String.valueOf(Integer.valueOf(ps.executeQuery().getString("mostRecent")) + 1);
+            outline = String.valueOf(Integer.valueOf(ps.executeQuery().getString("mostRecent")) + 1);
+            }
+            catch(Exception e) {
+            	outline = "1";
+            }
             ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, null, 0, 1);");
             ps.setString(1,  UUID.randomUUID().toString().replace("-", ""));
             ps.setString(2,  task);
