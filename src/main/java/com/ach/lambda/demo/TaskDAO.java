@@ -77,8 +77,9 @@ public class TaskDAO {
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;");
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()) {
+        while (!resultSet.isAfterLast()) {
             constant.add(getTask(resultSet.getString("Name"), p));
+            resultSet.next();
         }
         
 		return constant;
@@ -87,7 +88,7 @@ public class TaskDAO {
 
 	private Task generateTask(ResultSet resultSet) throws SQLException {
 		
-		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),null,resultSet.getString(5),resultSet.getBoolean(6),resultSet.getBoolean(7));
+		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(6),resultSet.getBoolean(7));
 	}
 
 }

@@ -37,13 +37,19 @@ public class Task {
 		response.put("name", name);
 		response.put("outlineID", outlineID);
 		
-		/*int teammateCount = teammateList.size();
+		
+		
+		int teammateCount = teammateList.size();
     	JSONObject[] teammateArray = new JSONObject[teammateCount];
     	for(int i = 0; i < this.teammateList.size(); i++) {
     		teammateArray[i] = teammateList.get(i).toJSON();
     	}
-    	result.put("teammateList", teammateArray);
-		*/
+    	response.put("teammateList", teammateArray);
+		
+    	response.put("parentTask", parentTask);
+    	response.put("isTerminal", isTerminal);
+    	response.put("isComplete", isComplete);
+    	
 		return response;
 	}
 }

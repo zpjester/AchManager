@@ -35,15 +35,40 @@
    var projectsList = document.getElementById('projectList');
    
    var output = "";
-   for (let i = 0; i < js.list.length; i++) {
-     var listJson = js.list[i];
+   for (let i = 0; i < js.projectList.length; i++) {
+     var listJson = js.projectList[i];
      console.log(listJson);
      
-     var projectName = listJson["name"];
+     var projectID = listJson["projectID"];
+     console.log("Name: " + projectID);
      var archived = listJson["isArchived"];
-     output = output + "<div id=\"proj" + projectName + "\"><b>" + projectName + ":</b> = " + archived + "<br></div>";
+     console.log("Archived: " + archived);
+
+	var archivedString;
+	if(archived){
+		archivedString = "Archived"
+	}
+	else{
+		archivedString = "Not Archived"
+	}
+     output = output + "<div id=\"proj" + projectID+ "\"><b>" + projectID+ " -> " + archivedString + "<br></div>";
    }
- 
-   // Update computation result
-   projectsList.innerHTML = "TESTING";
+ 	
+	var display = document.getElementById("listWindow");
+	display.innerHTML = output;
+	
+	var dropdownString = "";
+	var nameList = [];
+	for (let i = 0; i < js.projectList.length; i++){
+		var li = js.projectList[i];
+		name = li["projectID"];
+		nameList[i] = name;
+		dropdownString = dropdownString + "<option value =" + name + ">" + name + "</option>";
+	}
+	console.log(projectList);
+	
+	
+	var archiveToggle = document.getElementById("deleteDropdown");
+	archiveToggle.innerHTML = dropdownString;
+   
  }
