@@ -31,8 +31,7 @@ LambdaLogger logger;
 		
 		boolean exist = dao.getTeammate(name, projectID);
 		if(exist) {
-			dao.addTeammate(name, projectID);
-			
+			dao.addTeammate(name, projectID);			
 		}
 		else {
 			return false;
@@ -53,12 +52,13 @@ LambdaLogger logger;
 	
 	
 	@Override 
-	public JSONObject handleRequest(CreateProjectRequest req, Context context)  {
+	public JSONObject handleRequest(addTeammateRequest req, Context context)  {
 		logger = context.getLogger();
 		
-		logger.log("Project ID: " + req.toString() + "\n");
+		logger.log("Teammate Req: " + req.toString() + "\n");
 		
-		ProjectData response;
+		String name = req.name;
+		String projectID = req.projectID;
 		
 		
 		/*
@@ -67,20 +67,22 @@ LambdaLogger logger;
 		return response;
 		
 		//*/
+		JSONObject response = new JSONObject();
+		String code = "";
 		
 		try {
 			
-			if (createProject(req.projectID)) {
-				response = new ProjectData(req.projectID);
+			if (addTeammate(name, projectID)) {
+				code = "200";
 			} else {
-				response = new ProjectData(req.projectID, 422);
+				code = "403";
 			}
 		} catch (Exception e) {
-			response = new ProjectData("Unable to create project: " + req.projectID + "(" + e.getMessage() + ")", 400);
+			response = "420";
 			
 		}
 		
-		return response.toJSON();
+		return response;
 		//*/
 	}
 }
