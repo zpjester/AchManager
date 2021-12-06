@@ -1,21 +1,5 @@
 
 
-function processAddTeammateResponse(result) {
-  // Can grab any DIV or SPAN HTML element and can then manipulate its
-  // contents dynamically via javascript
-  console.log("result:" + result);
-
-  // refreshProjectsList();
-
-  var paragraph = document.getElementById("output");
-   paragraph.innerHTML = result;
-  var teammateList = document.getElementById("teammateList");
-  var node = document.createElement("li");
-  var textnode = document.createTextNode(result.name);
-  node.appendChild(textnode);
-  document.getElementById("teammateList").appendChild(node);
-}
-
 function handleAddTeammateClick(e) {
   var form = document.getElementById("addTeammateForm");
   // console.log("Creating project with " + e.createForm.JSON.stringify);
