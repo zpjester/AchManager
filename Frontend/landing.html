@@ -25,10 +25,17 @@
     <input type="text" id="projectName" placeholder="Enter name here"><br><br>
     <input type="button" value="Load Project" onclick="JavaScript:handleLoadClick(this)">
   </form>
-  
-  <form name="addTaskForm" method="post"><input type="hidden" id="taskName" placeholder="Enter task name">
+  <p id="output"></p>
+  <ul type="hidden" id="teammateList"></ul>
+  <form name="addTeammateForm" method="post">
+  <input hidden id="teammateName" placeholder="Enter teammate name">
       
-      <input type="hidden" value="Add Task" onclick="JavaScript:handleAddTaskClick(this)">
-  </form><p id="output"></p>
+      <input value="Add Teammate" onclick="JavaScript:handleAddTeammateClick(this)">
+  </form>
   <ol type="hidden" id="taskList"></ol>
+  <form name="addTaskForm" method="post"><input hidden id="taskName" placeholder="Enter task name">
+      
+      <input value="Add Task" onclick="JavaScript:handleAddTaskClick(this)">
+  </form>
+  
   </body></html>
