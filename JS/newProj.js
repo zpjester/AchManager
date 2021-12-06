@@ -1,14 +1,11 @@
 
 
-function processCreateResponse(result) {
+function processCreateResponse(projName) {
   // Can grab any DIV or SPAN HTML element and can then manipulate its
   // contents dynamically via javascript
-  console.log("result:" + result);
-
-  // refreshProjectsList();
-
-  var paragraph = document.getElementById("output");
-   paragraph.innerHTML = result;
+  console.log("Process created, loading now!");
+	
+	loadProject(projName);
 }
 
 function handleCreateClick(e) {
@@ -43,7 +40,7 @@ function handleCreateClick(e) {
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
-	      processCreateResponse(xhr.responseText);
+	      processCreateResponse(form.projectName.value);
     	 } else {
     		 console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
