@@ -18,10 +18,10 @@ function handleAddTaskClick(e) {
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
   xhr.open("POST", projURL, true);
-  console.log("Post request sent!");
+  
 
 	xhr.send();
-
+console.log("Post request sent!");
 
   // This will process results and update HTML as appropriate. 
   xhr.onloadend = function () {

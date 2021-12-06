@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html> 
 <script type='text/javascript' src='../JS/getProjectsList.js'></script>
+<script type='text/javascript' src='../JS/deleteProject.js'></script>
 <script type='text/javascript' src='../JS/api.js'></script>
 <head>
 </head> 
@@ -17,7 +18,7 @@ process();
 <p id="listWindow"></p>
 <form name="deleteProj" id="deleteProj" method="get" hidden = "true">
 	<select id="deleteDropdown" name="deleteDropdown"></select>
-	<input type="button" value="Delete Project" onclick="JavaScript:notImplementedYet">
+	<input type="button" value="Delete Project" onclick="JavaScript:handleDeleteProjectClick(this)">
 	<input type="button" value="Archive Project" onclick="JavaScript:notImplementedYet">
 </form>
 </body>

@@ -1,10 +1,13 @@
 
 function handleDeleteProjectClick(e) {
   // console.log("Creating project with " + e.createForm.JSON.stringify);
-  var form = document.createProj;
+  
   // console.log("Creating project with " + e.createForm.JSON.stringify);
-  var data = {};
-  data["projectID"] = form.projectName.value;
+  
+  //var projForm = document.getElementById("deleteProject");
+  var dropdown = document.getElementById("deleteDropdown");
+  var projName = dropdown.value;
+  
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
   // }
@@ -12,7 +15,7 @@ function handleDeleteProjectClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = deleteProject_url + "?projectID=" + form.projectName.value;
+  var projURL = deleteProject_URL + "?projectID=" + projName;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -31,7 +34,7 @@ function handleDeleteProjectClick(e) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
 	      //processAddTeammateResponse(xhr.responseText);
-		loadProject(projName);
+		refreshProjectsList();
     	 }
   };
 }
