@@ -2,7 +2,8 @@ package com.ach.lambda.demo;
 
 import java.util.LinkedList;
 import org.json.simple.JSONObject; 
-
+import com.ach.lambda.demo.Teammate;
+import com.ach.lambda.demo.Task;
 
 public class ProjectData {
     private String projectID;
@@ -56,8 +57,20 @@ public class ProjectData {
     public JSONObject toJSON() {
     	JSONObject result = new JSONObject();
     	result.put("projectID", projectID);
-    	result.put("teammateList", teammateList);
-    	result.put("taskList", taskList);
+    	int teammateCount = teammateList.size();
+    	JSONObject[] teammateArray = new JSONObject[teammateCount];
+    	for(int i = 0; i < this.teammateList.size(); i++) {
+    		teammateArray[i] = teammateList.get(i).toJSON();
+    	}
+    	result.put("teammateList", teammateArray);
+    	
+    	int taskCount = taskList.size();
+    	JSONObject[] taskArray = new JSONObject[taskCount];
+    	for(int i = 0; i < this.taskList.size(); i++) {
+    		teammateArray[i] = taskList.get(i).toJSON();
+    	}
+    	result.put("taskList", taskArray);
+    	
     	result.put("archived", archived);   
     	result.put("code", system);
     	return result;
@@ -65,7 +78,7 @@ public class ProjectData {
 	public ProjectData(String projectID) {
 		this.projectID = projectID;
 	    this.teammateList = new LinkedList<Teammate>();
-	    this.teammateList.add(new Teammate("testMate"));
+//	    this.teammateList.add(new Teammate("testMate"));
 	    this.taskList = new LinkedList<Task>();
 	    this.archived = false;
 	}

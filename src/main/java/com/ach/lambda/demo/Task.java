@@ -2,7 +2,8 @@ package com.ach.lambda.demo;
 
 import java.util.LinkedList;
 import java.util.UUID;
- 
+import org.json.simple.JSONObject;
+
 public class Task {
 	public String name;
 	public String tasksID;
@@ -29,5 +30,20 @@ public class Task {
 		parentTask = p;
 		isTerminal = term;
 		isComplete = com;
+	}
+	
+	public JSONObject toJSON(){
+		JSONObject response = new JSONObject();
+		response.put("name", name);
+		response.put("outlineID", outlineID);
+		
+		/*int teammateCount = teammateList.size();
+    	JSONObject[] teammateArray = new JSONObject[teammateCount];
+    	for(int i = 0; i < this.teammateList.size(); i++) {
+    		teammateArray[i] = teammateList.get(i).toJSON();
+    	}
+    	result.put("teammateList", teammateArray);
+		*/
+		return response;
 	}
 }
