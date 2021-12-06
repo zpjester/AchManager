@@ -60,7 +60,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
 		return false;
 	}
 	
-	    public boolean addTeammate(String name, String p) throws SQLException {
+	public boolean addTeammate(String name, String p) throws SQLException {
 		
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName1 + " WHERE Pid = ? and Name = ?;");
         
@@ -84,6 +84,30 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
         ps.execute();
         return true;
 		
+		//return false;
+	}
+	public boolean removeTeammate(String name, String p) throws SQLException {
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName1 + " WHERE Pid = ? and Name = ?;");
+        
+        ps.setString(1, p);
+        ps.setString(2, name);
+        
+        ResultSet resultSet = ps.executeQuery();
+        
+        // already present?
+        while (resultSet.next()) {
+        	 ps = conn.prepareStatement("DELETE FROM " + tblName1 + " WHERE MEMDERid = ?");
+             ps.setString(1, resultSet.getString(1));
+//             ps.setBoolean(2,  constant.isArchived);
+             ps.execute();
+             return true;
+            
+        }
+
+       
+        resultSet.close();
+        return false;
 		//return false;
 	}
 }
