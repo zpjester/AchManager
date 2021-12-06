@@ -60,25 +60,4 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
 	}
 }
 
-public boolean addTeammate(String name, String projectID) throws SQLException{
-	
-	
-		LinkedList<Teammate> members = new LinkedList<Teammate>();
-		
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName1 + " WHERE Pid = ?;");
-		ps.setString(1, name);
-        ResultSet resultSet = ps.executeQuery();
-        while (resultSet.next()) {
-            members.add(new Teammate(resultSet.getString(2)));
-        }
-		resultSet.close();
-		ps.close();
-		
-		for(Teammate tm: members) {
-			if(tm.name == name) {
-				return true;
-			}
-		}
-		return false;
-	}
-}
+
