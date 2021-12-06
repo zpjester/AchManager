@@ -70,5 +70,8 @@
 	
 	var archiveToggle = document.getElementById("deleteDropdown");
 	archiveToggle.innerHTML = dropdownString;
+	
+	var deletProj = document.getElementById("deleteProj");
+	deleteProj.removeAttribute("hidden");
    
  }

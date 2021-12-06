@@ -9,8 +9,11 @@ function processLoadResponse(result) {
 
   var paragraph = document.getElementById("output");
   var orderedList = document.getElementById("taskList");
-
   paragraph.innerHTML = result.projectID;
+  var taskForm = document.getElementById("addTaskForm");
+  taskForm.removeAttribute("hidden");
+  var teammateForm = document.getElementById("addTeammateForm");
+  teammateForm.removeAttribute("hidden");
 
   for (let i = 0; i < result.taskList.length; i++) {
     var node = document.createElement("li");
@@ -18,6 +21,14 @@ function processLoadResponse(result) {
     node.appendChild(textnode);
     document.getElementById("taskList").appendChild(node);
   }
+  
+  for (let i = 0; i < result.teammateList.length; i++) {
+    var node = document.createElement("li");
+    var textnode = document.createTextNode(result.teammateList[i].name);
+    node.appendChild(textnode);
+    document.getElementById("teammateList").appendChild(node);
+  }
+  
 }
 
 function handleLoadClick(e) {
@@ -48,7 +59,7 @@ function handleLoadClick(e) {
   xhr.onloadend = function () {
     console.log("Load ended")
     console.log(xhr);
-    console.log(xhr.responseText);
+    console.log(xhr.responseType);
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
