@@ -2,6 +2,7 @@ package com.ach.lambda.demo;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -88,9 +89,9 @@ public class ProjectsDAO {
         }
 	}
 	private ProjectList generateProjectList(ResultSet resultSet) throws SQLException {
-		Project[] projs = new Project[resultSet.getFetchSize()];
+		LinkedList<Project> projs = new LinkedList<Project>();
 		while(resultSet.next()){
-			projs[resultSet.getRow()-1] = new Project(resultSet.getString(1), resultSet.getBoolean(2));
+			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2)));
 		}
 		return new ProjectList(projs);
 	}
