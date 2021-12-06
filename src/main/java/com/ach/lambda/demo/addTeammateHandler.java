@@ -25,12 +25,12 @@ LambdaLogger logger;
 	 * @throws Exception 
 	 */
 	boolean addTeammate(String name, String projectID) throws Exception { 
-		if (logger != null) { logger.log("in createProject \n"); }
+//		if (logger != null) { logger.log("in createProject \n"); }
 
 		TeamDAO dao = new TeamDAO();
 		
 		boolean exist = dao.getTeammate(name, projectID);
-		if(exist) {
+		if(!exist) {
 			return dao.addTeammate(name, projectID);	
 			
 		}
@@ -80,9 +80,11 @@ LambdaLogger logger;
 			}
 		} catch (Exception e) {
 			code = "420";
+			e.printStackTrace();
 			
 		}
 		
+		response.put("code", code);
 		return response;
 		//*/
 	}
