@@ -77,8 +77,9 @@ public class TaskDAO {
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
         while (!resultSet.isAfterLast()) {
-            constant.add(getTask(resultSet.getString("Name"), p));
-           // resultSet.next();
+            constant.add(new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),
+            				new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(6),resultSet.getBoolean(7)));
+           resultSet.next();
         }
         resultSet.close();
         ps.close();
