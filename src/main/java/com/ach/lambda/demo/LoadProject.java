@@ -3,11 +3,11 @@ package com.ach.lambda.demo;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-
-public class LoadProject implements RequestHandler<LoadProjectRequest, String> {
+import org.json.simple.JSONObject; 
+public class LoadProject implements RequestHandler<LoadProjectRequest, JSONObject> {
 	LambdaLogger logger;
     @Override
-    public String handleRequest(LoadProjectRequest input, Context context) {
+    public JSONObject handleRequest(LoadProjectRequest input, Context context) {
 
         logger = context.getLogger();
 		
@@ -27,7 +27,7 @@ public class LoadProject implements RequestHandler<LoadProjectRequest, String> {
 			response = new ProjectData("Project " + input.projectID + " not found", 404);
 		}
 		
-        return response.toString();
+        return response.toJSON();
     }
 
 }
