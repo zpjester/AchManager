@@ -129,5 +129,29 @@ public class ProjectsDAO {
         Boolean value = resultSet.getBoolean("isAchived");
         return new Project (name, value);
 	}
+	
+public boolean deleteProject(String p) throws SQLException {
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectName = ?;");
+        
+        ps.setString(1, p);
+        
+        ResultSet resultSet = ps.executeQuery();
+        
+        // already present?
+        while (resultSet.next()) {
+        	 ps = conn.prepareStatement("DELETE FROM " + tblName + " WHERE ProjectName = ?");
+             ps.setString(1, resultSet.getString(1));
+//             ps.setBoolean(2,  constant.isArchived);
+             ps.execute();
+             return true;
+            
+        }
+
+       
+        resultSet.close();
+        return false;
+		//return false;
+	}
 
 }
