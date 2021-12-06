@@ -31,7 +31,8 @@ LambdaLogger logger;
 		
 		boolean exist = dao.getTeammate(name, projectID);
 		if(exist) {
-			dao.addTeammate(name, projectID);			
+			return dao.addTeammate(name, projectID);	
+			
 		}
 		else {
 			return false;
@@ -78,7 +79,7 @@ LambdaLogger logger;
 				code = "403";
 			}
 		} catch (Exception e) {
-			response = "420";
+			code = "420";
 			
 		}
 		

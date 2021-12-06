@@ -60,7 +60,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
 		return false;
 	}
 	
-	private boolean addTeammate(String name, String p) throws SQLException {
+	    public boolean addTeammate(String name, String p) throws SQLException {
 		
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName1 + " WHERE Pid = ? and Name = ?;");
         
