@@ -9,12 +9,14 @@ function processLoadResponse(result) {
 
   var paragraph = document.getElementById("output");
 
-  paragraph.innerHTML = result;
+  paragraph.innerHTML = result.projectID;
 
-  var node = document.createElement("LI");
-  var textnode = document.createTextNode("TASK");
-  node.appendChild(textnode);
-  document.getElementById("output").appendChild(node);
+  for (let i = 0; i < result.taskList.size; i++) {
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(result.taskList[i].name);
+    node.appendChild(textnode);
+    document.getElementById("output").appendChild(node);
+  }
 }
 
 function handleLoadClick(e) {
@@ -45,11 +47,11 @@ function handleLoadClick(e) {
   xhr.onloadend = function () {
     console.log("Load ended")
     console.log(xhr);
-    console.log(xhr.request);
+    console.log(xhr.responseType);
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
-	      processLoadResponse(xhr.responseText);
+	      processLoadResponse(JSON.parse(xhr.response));
     	 } else {
     		 console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);

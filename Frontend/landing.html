@@ -1,0 +1,33 @@
+<html><head>
+  <script type="text/javascript" src="../JS/newProj.js"></script>
+  <script type="text/javascript" src="../JS/loadProject.js"></script>
+  <script type="text/javascript" src="../JS/api.js"></script>
+  
+  
+  </head>
+  
+  <body cz-shortcut-listen="true" data-new-gr-c-s-check-loaded="14.1040.0" data-gr-ext-installed="">
+  <h1>Ach (TM) Project Manager </h1>
+  <h2>Create a project</h2>
+  <br>
+  <br> 
+  <form name="createProj" method="post">
+    <label for="Pname">Project name:</label>
+    <input type="text" id="projectName" placeholder="Enter name here"><br><br>
+    <input type="button" value="Make New Project" onclick="JavaScript:handleCreateClick(this)">
+  
+  </form>
+  <h2>Load a project</h2>
+  <br>
+  <br> 
+  <form name="loadProj" method="get">
+    <label for="Pname">Project name (no spaces):</label>
+    <input type="text" id="projectName" placeholder="Enter name here"><br><br>
+    <input type="button" value="Load Project" onclick="JavaScript:handleLoadClick(this)">
+  </form>
+  
+  <form name="addTaskForm" method="post"><input type="hidden" id="taskName" placeholder="Enter task name">
+      
+      <input type="hidden" value="Add Task" onclick="JavaScript:handleAddTaskClick(this)">
+  </form><p id="output"></p>
+  </body></html>
