@@ -1,7 +1,5 @@
-
-
-function handleAddTeammateClick(e) {
-  var form = document.getElementById("addTeammateForm");
+function handleAddTaskClick(e) {
+  var form = document.getElementById("addTaskForm");
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 	var output = document.getElementById("output");
 	var projName = output.innerText;
@@ -15,7 +13,7 @@ function handleAddTeammateClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTeammate_url + "/" + projName + "?teammateID="+form.teammateName.value;
+  var projURL = addTask_url + "/" + projName + "?taskName="+form.taskName.value;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -42,7 +40,7 @@ function handleAddTeammateClick(e) {
 			  alert (err);
     	 }
     } else {
-      processTeammateResponse("N/A");
+      processAddTaskResponse("N/A");
     }
   };
 }
