@@ -59,7 +59,7 @@ public class TaskDAO {
             ps.setString(2, t);
             ResultSet resultSet = ps.executeQuery();
             
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 constant = generateTask(resultSet);
             }
             resultSet.close();
@@ -79,7 +79,7 @@ public class TaskDAO {
         ResultSet resultSet = ps.executeQuery();
         while (!resultSet.isAfterLast()) {
             constant.add(getTask(resultSet.getString("Name"), p));
-            resultSet.next();
+           // resultSet.next();
         }
         
 		return constant;
