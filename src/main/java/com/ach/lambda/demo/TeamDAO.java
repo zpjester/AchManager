@@ -76,7 +76,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
             return false;
         }
 
-        ps = conn.prepareStatement("INSERT INTO " + tblName1 + " (MEMDERSid, Name, Pid) values(?,?,?);");
+        ps = conn.prepareStatement("INSERT INTO " + tblName1 + " (MEMDERSid, Name, Pid) values(?,?, (SELECT ProjectName from mydb.PROJECTS WHERE ProjectName='?'));");
         ps.setString(1, UUID.randomUUID().toString().replace("-", ""));
         ps.setString(2, name);
         ps.setString(3, p);
