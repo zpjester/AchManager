@@ -1,6 +1,8 @@
 package com.ach.lambda.demo;
 
 import java.util.LinkedList;
+import org.json.simple.JSONObject; 
+
 
 public class ProjectData {
     private String projectID;
@@ -48,6 +50,17 @@ public class ProjectData {
     	
     	String outputString = "Project" + projectID + archivedString + teammatesString + tasksString;
     	return outputString;
+    }
+    
+    
+    public JSONObject toJSON() {
+    	JSONObject result = new JSONObject();
+    	result.put("projectID", projectID);
+    	result.put("teammateList", teammateList);
+    	result.put("taskList", taskList);
+    	result.put("archived", archived);   
+    	result.put("code", system);
+    	return result;
     }
 	public ProjectData(String projectID) {
 		this.projectID = projectID;
