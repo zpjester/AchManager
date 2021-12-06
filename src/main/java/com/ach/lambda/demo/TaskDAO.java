@@ -16,7 +16,7 @@ public class TaskDAO {
     		conn = DatabaseUtil.connect();
     	} catch (Exception e) {
     		conn = null;
-//    		throw e;
+    		throw e;
     	}
 	}
 	

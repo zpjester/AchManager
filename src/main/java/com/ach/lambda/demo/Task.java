@@ -2,7 +2,6 @@ package com.ach.lambda.demo;
 
 import java.util.LinkedList;
 import java.util.UUID;
-
 import org.json.simple.JSONObject;
 
 public class Task {
