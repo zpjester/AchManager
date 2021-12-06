@@ -17,12 +17,12 @@ function processAddTeammateResponse(result) {
 }
 
 function handleAddTeammateClick(e) {
-  var form = document.createProj;
+  var form = document.getElementById("addTeammateForm");
   // console.log("Creating project with " + e.createForm.JSON.stringify);
-
-  var data = {};
-  data["projectID"] = form.projectName.value;
-  data["teammateID"] = form.teammateID.value;
+	var output = document.getElementById("output");
+	var projName = output.innerText;
+  
+  console.log(projName);
   
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
@@ -31,7 +31,7 @@ function handleAddTeammateClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = createProject_url + "?projectID=" + form.projectName.value;
+  var projURL = addTeammate_url + "/" + projName + "?teammateID="+form.teammateName.value;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -49,7 +49,8 @@ function handleAddTeammateClick(e) {
     if (xhr.readyState == XMLHttpRequest.DONE) {
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
-	      processAddTeammateResponse(xhr.responseText);
+	      //processAddTeammateResponse(xhr.responseText);
+		loadProject(projName);
     	 } else {
     		 console.log("actual:" + xhr.responseText)
 			  var js = JSON.parse(xhr.responseText);
