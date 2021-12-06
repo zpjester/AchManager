@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class TaskDAO {
 	
@@ -40,6 +41,38 @@ public class TaskDAO {
             ps.setString(2,  task.name);
             ps.setString(3,  p.projectID);
             ps.setString(4,  task.outlineID);
+            
+            
+//            ps.setBoolean(2,  constant.isArchived);
+            ps.execute();
+            return true;
+            
+
+        } catch (Exception e) {
+            throw new Exception("Failed to create project: " + e.getMessage());
+        }
+	}
+	public boolean addTask(String task, String p) throws Exception {
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+            
+            ps.setString(1, p);
+            ps.setString(2,  task);
+            
+            ResultSet resultSet = ps.executeQuery();
+            
+            // already present?
+            while (resultSet.next()) {
+                resultSet.close();
+                return false;
+            }
+            ps = conn.prepareStatement("select MAX(Outline) as mostRecent FROM mydb.TASKS (WHERE ProjectID = ? and ParentTask = ?);");
+            String outline = String.valueOf(Integer.valueOf(ps.executeQuery().getString("mostRecent")) + 1);
+            ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, null, 0, 1);");
+            ps.setString(1,  UUID.randomUUID().toString().replace("-", ""));
+            ps.setString(2,  task);
+            ps.setString(3,  p);
+            ps.setString(4,  outline);
             
             
 //            ps.setBoolean(2,  constant.isArchived);
