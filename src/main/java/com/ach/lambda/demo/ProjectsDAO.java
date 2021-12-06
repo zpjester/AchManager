@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProjectsDAO {
 	
-java.sql.Connection conn;
+	java.sql.Connection conn;
 	
 	final String tblName = "mydb.PROJECTS";
 	

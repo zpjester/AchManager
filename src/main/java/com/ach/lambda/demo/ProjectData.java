@@ -72,22 +72,22 @@ public class ProjectData {
 	public void setProjectID(String newID) {
 	    this.projectID = newID;
 	}
-//	
-//	public Teammate[] getTeammateList() {
-//	    return this.teammateList;
-//	}
-//	
-//	public void setTeammateList(Teammate[] newTeammates) {
-//	    this.teammateList = newTeammates;
-//	}
-//	
-//	public Task[] getTaskList() {
-//	    return this.taskList;
-//	}
-//	
-//	public void setTaskList(Task[] newTasks) {
-//	    this.taskList = newTasks;
-//	}
+	
+	public LinkedList<Teammate> getTeammateList() {
+	    return this.teammateList;
+	}
+	
+		public void setTeammateList(LinkedList<Teammate> newTeammates) {
+	    this.teammateList = newTeammates;
+	}
+	
+	public LinkedList<Task> getTaskList() {
+	    return this.taskList;
+	}
+	
+	public void setTaskList(LinkedList<Task> newTasks) {
+	    this.taskList = newTasks;
+	}
 	
 	public boolean getArchived() {
 	    return this.archived;
