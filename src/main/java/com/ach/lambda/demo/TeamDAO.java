@@ -8,8 +8,7 @@ import java.util.List;
 public class TeamDAO {
 	java.sql.Connection conn;
 
-	final String tblName1 = "mydb.TASKS";
-	final String tblName2 = "mydb.ASSignments";
+	final String tblName1 = "mydb.MEMBERS";
 	
 	public TeamDAO() throws Exception{
 		try  {
