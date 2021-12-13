@@ -13,9 +13,20 @@ function processLoadResponse(result) {
 
   paragraph.innerHTML = result.projectID;
   var taskForm = document.getElementById("addTaskForm");
-  taskForm.removeAttribute("hidden");
+
   var teammateForm = document.getElementById("addTeammateForm");
-  teammateForm.removeAttribute("hidden");
+  
+  if(result.archived){
+	var hide = document.createAttribute("hidden");
+   taskForm.setAttribute(hide);
+   teammateForm.setAttribute(hide);
+  }
+	else{
+   taskForm.removeAttribute("hidden");
+   teammateForm.removeAttribute("hidden");
+	}
+
+  
 
 
 	while(taskList.firstChild){

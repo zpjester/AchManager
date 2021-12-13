@@ -12,9 +12,11 @@ function handleCreateClick(e) {
   var form = document.createProj;
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 
-  var data = {};
-  data["projectID"] = form.projectName.value;
+  var projectID = form.projectName.value;
+  var idLower = projectID.toLowerCase();
+  var validName = !(idLower.includes(" ") || idLower.includes("drop table"));
   
+
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
   // }
@@ -22,7 +24,10 @@ function handleCreateClick(e) {
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = createProject_url + "?projectID=" + form.projectName.value;
+
+
+	if(validName){
+		var projURL = createProject_url + "?projectID=" + projectID;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
@@ -51,4 +56,14 @@ function handleCreateClick(e) {
       processCreateResponse("N/A");
     }
   };
+	}else{
+		if(idLower.includes("drop table")){
+			alert("Nice try Bobby Tables");
+		}
+		else if(idLower.includes(" ")){
+			alert("Invalid project name, cannot contain spaces");
+		}
+		
+	}
+  
 }

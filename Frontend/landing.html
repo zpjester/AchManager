@@ -15,7 +15,7 @@
   <br>
   <br> 
   <form name="createProj" method="post">
-    <label for="Pname">Project name:</label>
+    <label for="Pname">Project name (no spaces):</label>
     <input type="text" id="projectName" placeholder="Enter name here"><br><br>
     <input type="button" value="Make New Project" onclick="JavaScript:handleCreateClick(this)">
   
@@ -24,7 +24,7 @@
   <br>
   <br> 
   <form name="loadProj" method="get">
-    <label for="Pname">Project name (no spaces):</label>
+    <label for="Pname">Project name:</label>
     <input type="text" id="projectName" placeholder="Enter name here"><br><br>
     <input type="button" value="Load Project" onclick="JavaScript:handleLoadClick(this)">
   </form>
@@ -39,6 +39,9 @@
   <form hidden id="addTaskForm" method="post">
   		<input id="taskName" placeholder="Enter task name">  
       <input type="button" value="Add Task" onclick="JavaScript:handleAddTaskClick(this)">
+      <input type="button" value="Toggle Complete" onclick="JavaScript:notImplementedYet()">
+      <input type="button" value="Add Teammate" onclick="JavaScript:notImplementedYet()">
+      <input type="button" value="Remove Teammate" onclick="JavaScript:notImplementedYet()">
   </form>
   
   </body></html>

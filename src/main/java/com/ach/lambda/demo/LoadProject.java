@@ -39,7 +39,7 @@ public class LoadProject implements RequestHandler<LoadProjectRequest, JSONObjec
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			response = new ProjectData("Something went very wrong loading project " + projectID + " we have no idea why");
+			response = new ProjectData("Project " + input.projectID + " not found", 404);
 		}
 		
 		

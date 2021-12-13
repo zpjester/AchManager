@@ -43,6 +43,8 @@
      console.log("Name: " + projectID);
      var archived = listJson["isArchived"];
      console.log("Archived: " + archived);
+	 var completion = listJson["pctComplete"];
+     console.log("Completion %: " + completion + "%");
 
 	var archivedString;
 	if(archived){
@@ -51,7 +53,9 @@
 	else{
 		archivedString = "Not Archived"
 	}
-     output = output + "<div id=\"proj" + projectID+ "\"><b>" + projectID+ " -> " + archivedString + "<br></div>";
+	
+	
+     output = output + "<div id=\"proj" + projectID+ "\"><b>" + projectID+ " -> " + archivedString + ", " + completion + "% complete " + "<br></div>";
    }
  	
 	var display = document.getElementById("listWindow");
