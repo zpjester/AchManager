@@ -17,14 +17,13 @@ function processLoadResponse(result) {
   var teammateForm = document.getElementById("addTeammateForm");
   
   if(result.archived){
-	var hide = document.createAttribute("hidden");
-   taskForm.setAttribute(hide);
-   teammateForm.setAttribute(hide);
+   taskForm.hidden = true;
+   teammateForm.hidden = true;
   }
 	else{
-   taskForm.removeAttribute("hidden");
-   teammateForm.removeAttribute("hidden");
-	}
+   taskForm.hidden = false;
+   teammateForm.hidden = false;
+}
 
   
 
