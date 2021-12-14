@@ -43,7 +43,7 @@
      console.log("Name: " + projectID);
      var archived = listJson["isArchived"];
      console.log("Archived: " + archived);
-	 var completion = listJson["pctComplete"];
+	 var completion = listJson["percentComplete"];
      console.log("Completion %: " + completion + "%");
 
 	var archivedString;

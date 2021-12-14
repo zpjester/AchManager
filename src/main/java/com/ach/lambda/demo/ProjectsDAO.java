@@ -91,7 +91,7 @@ public class ProjectsDAO {
 		LinkedList<Project> projs = new LinkedList<Project>();
 		//resultSet.next();
 		while(resultSet.next()){
-			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2)));
+			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2), -1)); // THIS LINE NEEDS UPDATING
 			//resultSet.next();
 		}
 		return new ProjectList(projs);
@@ -127,7 +127,7 @@ public class ProjectsDAO {
 	private Project generateProject(ResultSet resultSet) throws SQLException {
 		String name  = resultSet.getString("ProjectName");
         Boolean value = resultSet.getBoolean("isAchived");
-        return new Project (name, value);
+        return new Project (name, value, -2);// Need to read percentage from tasks
 	}
 	
 public boolean deleteProject(String p) throws SQLException {
