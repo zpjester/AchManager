@@ -28,9 +28,10 @@ public class TaskDAO {
         
         ResultSet resultSet = ps.executeQuery();
         
-        if (!resultSet.next()) {
+        if (resultSet.getFetchSize() != 1) {
             return false;
         }
+        resultSet.next();
 		boolean current = resultSet.getBoolean("isCompleted");
 		
 		ps = conn.prepareStatement("UPDATE " + tblName + "SET isCompleted = ? WHERE ProjectID = ? and Name = ?;");
@@ -42,6 +43,16 @@ public class TaskDAO {
         ps.executeUpdate();
 		
 		return true;
+	}
+	public int getComplete(String p) throws Exception {
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;");
+		
+		ps.setString(1, p);
+        ResultSet resultSet = ps.executeQuery();
+		
+		
+        
+		return 0;
 	}
 	public boolean addTask(Task task, Project p) throws Exception {
 		try {
@@ -162,5 +173,6 @@ public class TaskDAO {
 		
 		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(6),resultSet.getBoolean(7));
 	}
+	
 
 }
