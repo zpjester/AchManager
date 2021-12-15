@@ -20,7 +20,29 @@ public class TaskDAO {
     		throw e;
     	}
 	}
-	
+	public boolean toggleComplete(String name, String p ) throws Exception {
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+        
+        ps.setString(1, p);
+        ps.setString(2,  name);
+        
+        ResultSet resultSet = ps.executeQuery();
+        
+        if (!resultSet.next()) {
+            return false;
+        }
+		boolean current = resultSet.getBoolean("isCompleted");
+		
+		ps = conn.prepareStatement("UPDATE " + tblName + "SET isCompleted = ? WHERE ProjectID = ? and Name = ?;");
+        
+        ps.setString(2, p);
+        ps.setString(3,  name);
+        ps.setBoolean(1, !current);
+        
+        ps.executeUpdate();
+		
+		return true;
+	}
 	public boolean addTask(Task task, Project p) throws Exception {
 		try {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
