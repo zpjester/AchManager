@@ -87,11 +87,12 @@ public class ProjectsDAO {
             throw new Exception("getProject Failed in getting project: " + e.getMessage());
         }
 	}
-	private ProjectList generateProjectList(ResultSet resultSet) throws SQLException {
+	private ProjectList generateProjectList(ResultSet resultSet) throws Exception {
 		LinkedList<Project> projs = new LinkedList<Project>();
 		//resultSet.next();
+		TaskDAO dao = new TaskDAO();
 		while(resultSet.next()){
-			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2), -1)); // THIS LINE NEEDS UPDATING
+			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2), dao.getComplete(resultSet.getString(1)))); // THIS LINE NEEDS UPDATING
 			//resultSet.next();
 		}
 		return new ProjectList(projs);

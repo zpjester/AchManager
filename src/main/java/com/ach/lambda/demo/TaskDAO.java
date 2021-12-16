@@ -50,9 +50,19 @@ public class TaskDAO {
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
 		
-		
+        int total = resultSet.getFetchSize();
         
-		return 0;
+        ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+        
+        ps.setString(1, p);
+        ps.setBoolean(2,  true);
+        
+        resultSet = ps.executeQuery();
+        
+        int com = resultSet.getFetchSize();
+        
+        
+		return (int)(com/total);
 	}
 	public boolean addTask(Task task, Project p) throws Exception {
 		try {
