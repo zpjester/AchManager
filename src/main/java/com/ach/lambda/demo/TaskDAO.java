@@ -61,6 +61,9 @@ public class TaskDAO {
         
         int com = resultSet.getFetchSize();
         
+        if(total == 0) {
+        	return 0;
+        }
         
 		return (int)((com/total) * 100);
 	}
