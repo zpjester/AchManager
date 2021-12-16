@@ -21,20 +21,23 @@ public class TaskDAO {
     	}
 	}
 	public boolean toggleComplete(String name, String p ) throws Exception {
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;",
+                ResultSet.TYPE_SCROLL_SENSITIVE, 
+            ResultSet.CONCUR_UPDATABLE);
         
         ps.setString(1, p);
         ps.setString(2,  name);
         
         ResultSet resultSet = ps.executeQuery();
         
-        if (resultSet.getFetchSize() != 1) {
+        if (!(resultSet.next())) {
             return false;
         }
-        resultSet.next();
 		boolean current = resultSet.getBoolean("isCompleted");
 		
-		ps = conn.prepareStatement("UPDATE " + tblName + "SET isCompleted = ? WHERE ProjectID = ? and Name = ?;");
+		ps = conn.prepareStatement("UPDATE " + tblName + "SET isCompleted = ? WHERE ProjectID = ? and Name = ?;",
+                ResultSet.TYPE_SCROLL_SENSITIVE, 
+            ResultSet.CONCUR_UPDATABLE);
         
         ps.setString(2, p);
         ps.setString(3,  name);
