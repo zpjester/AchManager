@@ -52,7 +52,7 @@ public class TaskDAO {
 		
         int total = resultSet.getFetchSize();
         
-        ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+        ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and isCompleted = ?;");
         
         ps.setString(1, p);
         ps.setBoolean(2,  true);
@@ -65,7 +65,7 @@ public class TaskDAO {
         	return 0;
         }
         
-		return (int)((com/total) * 100);
+		return (int)((((double)(com))/((double)(total))) * 100);
 	}
 	public boolean addTask(Task task, Project p) throws Exception {
 		try {
