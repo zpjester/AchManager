@@ -49,7 +49,7 @@ public class TaskDAO {
 		
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
-		
+		resultSet.last();
         int total = resultSet.getRow();
         
         if(total == 0) {
@@ -62,7 +62,7 @@ public class TaskDAO {
         ps.setBoolean(2,  true);
         
         resultSet = ps.executeQuery();
-        
+        resultSet.last();
             // moves cursor to the last row
         int com = resultSet.getRow();
         
