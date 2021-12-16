@@ -62,7 +62,7 @@ public class TaskDAO {
         int com = resultSet.getFetchSize();
         
         
-		return (int)(com/total);
+		return (int)((com/total) * 100);
 	}
 	public boolean addTask(Task task, Project p) throws Exception {
 		try {

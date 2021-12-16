@@ -61,7 +61,8 @@ public class ProjectsDAO {
             }
             resultSet.close();
             ps.close();
-            
+            TaskDAO dao = new TaskDAO();
+            constant.percentComplete  = dao.getComplete(resultSet.getString(1)); 
             return constant;
 
         } catch (Exception e) {
