@@ -45,7 +45,9 @@ public class TaskDAO {
 		return true;
 	}
 	public int getComplete(String p) throws Exception {
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;",
+                ResultSet.TYPE_SCROLL_SENSITIVE, 
+            ResultSet.CONCUR_UPDATABLE);
 		
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
@@ -56,7 +58,9 @@ public class TaskDAO {
         	return 0;
         }
         
-        ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and isCompleted = ?;");
+        ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and isCompleted = ?;",
+                ResultSet.TYPE_SCROLL_SENSITIVE, 
+            ResultSet.CONCUR_UPDATABLE);
         
         ps.setString(1, p);
         ps.setBoolean(2,  true);
