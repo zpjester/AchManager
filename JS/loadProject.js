@@ -36,8 +36,16 @@ function processLoadResponse(result) {
 	}
 
   for (let i = 0; i < result.taskList.length; i++) {
+	var task = result.taskList[i];
     var node = document.createElement("li");
-    var textnode = document.createTextNode(result.taskList[i].name);
+	var taskText = task.name;
+	if(task.isComplete){
+		taskText = taskText.concat(" Pretend there's a green check here");
+	}
+	else{
+		taskText = taskText.concat(" Pretend there's a red X here");
+	}
+    var textnode = document.createTextNode(taskText);
 	node.name = "taskItem" + (i+1);
     node.appendChild(textnode);
     document.getElementById("taskList").appendChild(node);
