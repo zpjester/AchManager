@@ -28,8 +28,8 @@ LambdaLogger logger;
 		if (logger != null) { logger.log("in toggleComplete \n"); }
 
 		TaskDAO dao = new TaskDAO();
-//		return dao.toggleComplete(name, projectID); // needs to be added
-		return false;
+		return dao.toggleComplete(name, projectID); // needs to be added
+//		return false;
 	}
 	
 	
