@@ -8,7 +8,7 @@ var toggleTeammate_url = base_url + "/addTeammate";    // POST
 var removeTeammate_url = base_url + "/removeTeammate";    // POST
 
 var addTask_url = base_url + "/addTask";    // POST
-var toggleComplete_url = base_url + "/toggleComplete"; // POST
+var toggleComplete_url = base_url + "/markTask"; // POST
 var splitTask_URL = base_url + ""; // POST
 var markTask_URL = base_url + ""; // POST
 var assignTeammate_URL = base_url + ""; // POST
