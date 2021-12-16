@@ -155,4 +155,14 @@ public boolean deleteProject(String p) throws SQLException {
 		//return false;
 	}
 
+public boolean archiveProject(String projectID) {
+	//PreparedStatement ps = conn.prepareStatement("UPDATE" + tblName + "SET isAchived = 1 WHERE ProjectName = ?;");
+    
+   // ps.setString(1, p);
+    
+    //ResultSet resultSet = ps.executeQuery();
+	
+	return false;
+}
+
 }
