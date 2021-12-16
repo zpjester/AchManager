@@ -24,9 +24,9 @@ LambdaLogger logger;
 		TeamDAO dao = new TeamDAO();
 		
 		boolean exist = dao.getTeammate(name, projectID);
-		if(!exist) {
-			return dao.addTeammate(name, projectID);	
-			
+		if(exist) {
+//			return dao.toggleTeammate(name, taskName, projectID);	Not created yet
+			return false;
 		}
 		else {
 			return false;
@@ -49,13 +49,14 @@ LambdaLogger logger;
 	@Override 
 	public JSONObject handleRequest(toggleAssignTeammateRequest req, Context context)  {
 		logger = context.getLogger();
-		
-		logger.log("Assignment Req: " + req.toString() + "\n");
-		
 		String name = req.name;
 		String projectID = req.projectID;
 		String taskName = req.taskName;
 		
+		logger.log("\n Assignment Req: " + req.toString() + "\n");
+		logger.log("Toggling assignment of teammate " + name + " to task " + taskName + " in project " + projectID + "\n");
+		
+	
 		/*
 		
 		response = new ProjectData("Test", null, null, false);
