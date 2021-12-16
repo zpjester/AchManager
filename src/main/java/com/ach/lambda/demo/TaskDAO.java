@@ -188,7 +188,7 @@ public class TaskDAO {
 		ResultSet resultSet = ps.executeQuery();
 		while (resultSet.next()) {
 			constant.add(new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),
-					new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(6),resultSet.getBoolean(7)));
+					new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6)));//TODO
 			//resultSet.next();
 		}
 		resultSet.close();
