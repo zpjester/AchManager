@@ -38,8 +38,8 @@ LambdaLogger logger;
 	public JSONObject handleRequest(toggleCompleteRequest req, Context context)  {
 		logger = context.getLogger();
 		
-		logger.log("Toggling completion: " + req.toString() + "\n");
-		
+		logger.log("\n\nToggling completion of task " + req.name + " in " + req.projectID + "\n");
+		logger.log("\n" + req.name);
 		JSONObject response = new JSONObject();
 		String code = "";
 				

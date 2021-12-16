@@ -46,7 +46,7 @@ function handleToggleTeammateClick(e) {
 		if(responseObj.code == 200){
 			loadProject(projName);
 		} else{
-			alert("Cannot add " + form.teammateName.value + ", already exists");
+			alert("Cannot toggle assignment " + teammate + " to " + task);
 			loadProject(projName);
 		}
 		
