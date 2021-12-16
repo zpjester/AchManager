@@ -93,7 +93,7 @@ public class ProjectsDAO {
 		//resultSet.next();
 		TaskDAO dao = new TaskDAO();
 		while(resultSet.next()){
-			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2), dao.getComplete(resultSet.getString(1)))); // THIS LINE NEEDS UPDATING
+			projs.add(new Project(resultSet.getString(1), resultSet.getBoolean(2), dao.getComplete(resultSet.getString(1))));
 			//resultSet.next();
 		}
 		return new ProjectList(projs);
