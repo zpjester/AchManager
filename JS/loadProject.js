@@ -38,8 +38,21 @@ function processLoadResponse(result) {
   for (let i = 0; i < result.taskList.length; i++) {
     var node = document.createElement("li");
     var textnode = document.createTextNode(result.taskList[i].name);
+	node.name = "taskItem" + (i+1);
     node.appendChild(textnode);
     document.getElementById("taskList").appendChild(node);
+	
+	var teammateNode = document.createElement("SELECT");
+	teammateNode.name = "teammateDropdown" + (i+1);
+	document.getElementById("taskList").appendChild(teammateNode)
+
+	for (let j = 0; j < result.taskList[i].teammateList.length; j++) {
+		var teammateOptionNode = document.createElement("OPTION");
+		var teammateOptionTextnode = document.createTextNode(result.taskList[i].teammateList[j].name);
+		teammateOptionNode.name = "teammateNum" + j;
+		teammateOptionNode.appendChild(teammateOptionTextNode);
+		document.getElementById(teammateNode.name).appendChild(teammateOptionNode);	
+	}
   }
   
   for (let i = 0; i < result.teammateList.length; i++) {
