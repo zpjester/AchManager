@@ -50,7 +50,11 @@ public class TaskDAO {
 		ps.setString(1, p);
         ResultSet resultSet = ps.executeQuery();
 		
-        int total = resultSet.getFetchSize();
+        int total = resultSet.getRow();
+        
+        if(total == 0) {
+        	return 0;
+        }
         
         ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and isCompleted = ?;");
         
@@ -59,11 +63,10 @@ public class TaskDAO {
         
         resultSet = ps.executeQuery();
         
-        int com = resultSet.getFetchSize();
+            // moves cursor to the last row
+        int com = resultSet.getRow();
         
-        if(total == 0) {
-        	return 0;
-        }
+       
         
 		return (int)((((double)(com))/((double)(total))) * 100);
 	}
