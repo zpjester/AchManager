@@ -40,6 +40,9 @@
   <ol  id="taskList"></ol>
   <form hidden id="addTaskForm" method="post">
   		<input id="taskName" placeholder="Enter task name">
+  		<select id="teammateDropdown" name="teammateDropdown">
+  		 <option value="" disabled selected>Select a teammate</option>
+  		</select>
       <input type="button" value="Add Task" onclick="JavaScript:handleAddTaskClick(this)">
       <input type="button" value="Toggle Complete" onclick="JavaScript:handleToggleCompleteClick()">
       <input type="button" value="Toggle Teammate" onclick="JavaScript:handleToggleTeammateClick()">

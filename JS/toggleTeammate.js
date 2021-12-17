@@ -6,7 +6,7 @@ function handleToggleTeammateClick(e) {
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 	var output = document.getElementById("output");
 	var projName = output.innerText;
-  
+    var teammateDropdown = document.getElementById("teammateDropdown");
   console.log(projName);
   
   // if (form.system.checked) {  // be sure to flag system constant requests...
@@ -17,7 +17,7 @@ function handleToggleTeammateClick(e) {
 
   // var js = JSON.stringify(data);
 
-  var teammate = teammateForm.teammateName.value;
+  var teammate = teammateDropdown.value;
   var task = taskForm.taskName.value;
   var projURL = toggleTeammate_url + "/" + projName + "?teammateID="+teammate + "&taskName=" + task;
   // console.log("JS:" + js);

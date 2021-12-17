@@ -6,16 +6,20 @@ function processLoadResponse(result) {
   console.log("result:" + result);
 
   // refreshProjectsList();
-
+  
+  // Get HTML elements
   var paragraph = document.getElementById("output");
   var taskList = document.getElementById("taskList");
   var teammateList = document.getElementById("teammateList");
 
-  paragraph.innerHTML = result.projectID;
+ 
   var taskForm = document.getElementById("addTaskForm");
 
   var teammateForm = document.getElementById("addTeammateForm");
-  
+  var teammateDropdown = document.getElementById("teammateDropdown");
+
+
+// Show / hide controls based on archival status
   if(result.archived){
    taskForm.hidden = true;
    teammateForm.hidden = true;
@@ -25,16 +29,20 @@ function processLoadResponse(result) {
    teammateForm.hidden = false;
 }
 
-  
-
-
-	while(taskList.firstChild){
+// Clear lists of tasks and teammates
+while(taskList.firstChild){
 		taskList.removeChild(taskList.firstChild);
 	}
 	while(teammateList.firstChild){
 		teammateList.removeChild(teammateList.firstChild);
 	}
+	
+   // Project name
+  paragraph.innerHTML = result.projectID;
 
+
+	
+// Put all tasks in task list
   for (let i = 0; i < result.taskList.length; i++) {
 	var task = result.taskList[i];
     var node = document.createElement("li");
@@ -45,11 +53,15 @@ function processLoadResponse(result) {
 	else{
 		taskText = taskText.concat("&#10060;");
 	}
+	
     var textnode = document.createTextNode(taskText);
 	node.name = "taskItem" + (i+1);
     node.appendChild(textnode);
     document.getElementById("taskList").appendChild(node);
 	
+	// Teammate list
+	//not working
+	/*
 	var teammateNode = document.createElement("SELECT");
 	teammateNode.name = "teammateDropdown" + (i+1);
 	document.getElementById("taskList").appendChild(teammateNode);
@@ -60,17 +72,29 @@ function processLoadResponse(result) {
 		teammateOptionNode.name = "teammateNum" + j;
 		teammateOptionNode.appendChild(teammateOptionTextNode);
 		document.getElementById(teammateNode.name).appendChild(teammateOptionNode);	
-	}
+	}*/
 	document.getElementById("taskList").innerHTML = document.getElementById("taskList").innerHTML.replace("&amp;","&");
   }
   
+var dropdownString = "<option value=\"\" disabled selected>Select a teammate</option>";
+	
+	
+	
+	
+	
+
+//Add teammates to list
+
   for (let i = 0; i < result.teammateList.length; i++) {
     var node = document.createElement("li");
-    var textnode = document.createTextNode(result.teammateList[i].name);
+    var name = result.teammateList[i].name;
+    var textnode = document.createTextNode(name);
     node.appendChild(textnode);
     document.getElementById("teammateList").appendChild(node);
+    dropdownString = dropdownString + "<option value =" + name + ">" + name + "</option>";
   }
-  
+// Push teammate list to selector dropdown
+  teammateDropdown.innerHTML = dropdownString;
 }
 
 function handleLoadClick(e) {
