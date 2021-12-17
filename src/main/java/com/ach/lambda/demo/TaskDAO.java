@@ -248,7 +248,7 @@ public class TaskDAO {
 	}
 	public LinkedList<Task> getTaskList(String p) throws Exception{
 		LinkedList<Task> constant = new LinkedList<Task>();
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ?;");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? order by ParentTask,OutlineID;");
 		//		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName);
 
 		ps.setString(1, p);
