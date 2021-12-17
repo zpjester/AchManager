@@ -38,12 +38,6 @@ public class ProjectsDAOTest {
     }
 
     @Test
-    public void testGetProject() throws Exception {
-    	input = new ProjectsDAO();
-    	input.getProject(null);
-    	Assert.assertEquals("",input.addProject(null));
-    }
-    @Test
     public void testToggleComplete() throws Exception {
     	input = new ProjectsDAO();
     	input.getProjectData("JUnitReadOnly");

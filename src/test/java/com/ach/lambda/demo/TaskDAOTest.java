@@ -47,7 +47,7 @@ public class TaskDAOTest {
     public void testToggleComplete() throws Exception {
     	input = new TaskDAO();
     	input.toggleComplete("task1", "JUnitReadOnly");
-    	input.addTask("123", "t2");
+    	input.addTask("task1", "JUnitReadOnly");
     	input.toggleComplete("task1", "JUnitReadOnly");
     	input.renameTask("JUnitReadOnly", "task1", "Hhhi");
     	input.getComplete("");
@@ -60,6 +60,9 @@ public class TaskDAOTest {
         Context ctx = createContext();
 
         JSONParser parser = new JSONParser();
+        Task t1 = new Task("t4");
+        Project p = new Project("DeleteMe");
+        input.addTask(t1, p);
         // TODO: validate output here if needed.
         Object obj = parser.parse(new FileReader("readonly.json"));
         String output = "";
