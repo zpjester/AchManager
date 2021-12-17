@@ -18,9 +18,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
-public class TeamDAOTest {
+public class TaskDAOTest {
 
-    private static TeamDAO input;
+    private static TaskDAO input;
 
     @BeforeClass
     public static void createInput() throws IOException {
@@ -39,12 +39,13 @@ public class TeamDAOTest {
 
     @Test
     public void testLinkedList() throws Exception {
-    	input = new TeamDAO();
-    	input.getTeammateList("sup");
-    	input.getTeammate("hi", "JUnitReadOnly");
-    	input.addTeammate("hi", "hello");
-    	input.removeTeammate("hi", "hello");
-    	input.toggleTeammate("hi", "hello", "JUnitReadOnly");
+    	input = new TaskDAO();
+    	input.addSubTask("task1", "JUnitReadOnly", "t2");
+    	input.addSubTask("", "", "");
+    	input.addTask("", "");
+    	input.getComplete("");
+    	input.getTaskList("");
+    	input.getTask("", "");
         LoadProject handler = new LoadProject();
         Context ctx = createContext();
 
