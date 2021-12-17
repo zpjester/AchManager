@@ -12,14 +12,14 @@ import com.amazonaws.services.lambda.runtime.Context;
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
-public class CreateProjectHandlerTest {
+public class DeleteProjectTest {
 
-    private static CreateProjectRequest input;
+    private static DeleteProjectRequest input;
 
     @BeforeClass
     public static void createInput() throws IOException {
         // TODO: set up your sample input object here.
-        input = new CreateProjectRequest("1234");
+        input = new DeleteProjectRequest("1234");
     }
 
     private Context createContext() {
@@ -32,15 +32,20 @@ public class CreateProjectHandlerTest {
     }
 
     @Test
-    public void testCreateProjectHandler() {
-        CreateProjectHandler handler = new CreateProjectHandler();
+    public void testDeleteProjectHandler() {
+        DeleteProjectHandler handler = new DeleteProjectHandler();
         Context ctx = createContext();
 
         JSONObject output = handler.handleRequest(input, ctx);
 
        //Object output = null;
 		// TODO: validate output here if needed.
-        Assert.assertEquals((new ProjectData("1234")).toJSON(), output);
+        try {
+			Assert.assertEquals(handler.deleteProject("1234"), null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     @Test

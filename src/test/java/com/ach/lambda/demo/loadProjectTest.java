@@ -30,7 +30,7 @@ public class loadProjectTest {
         TestContext ctx = new TestContext();
 
         // TODO: customize your context here if needed.
-        ctx.setFunctionName("Your Function Name");
+        ctx.setFunctionName("1234");
 
         return ctx;
     }
