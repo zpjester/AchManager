@@ -20,6 +20,37 @@ public class TaskDAO {
 			throw e;
 		}
 	}
+	public boolean toggleTerminal(String name, String p ) throws Exception {
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;",
+
+				ResultSet.TYPE_SCROLL_SENSITIVE, 
+				ResultSet.CONCUR_UPDATABLE);
+
+		ps.setString(1, p);
+		ps.setString(2,  name);
+
+		ResultSet resultSet = ps.executeQuery();
+
+		if (!(resultSet.next())) {
+			return false;
+		}
+		boolean current = resultSet.getBoolean("isTerminal");
+
+		ps = conn.prepareStatement("UPDATE " + tblName + " SET isTerminal = ? WHERE ProjectID = ? and Name = ?;"
+				);
+//				,ResultSet.TYPE_SCROLL_SENSITIVE, 
+//				ResultSet.CONCUR_UPDATABLE);
+
+		ps.setString(2, p);
+
+		ps.setString(3, name);
+
+		ps.setBoolean(1, false);
+		
+		ps.execute();
+
+		return true;
+	}
 	public boolean toggleComplete(String name, String p ) throws Exception {
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;",
 
@@ -179,7 +210,7 @@ public class TaskDAO {
 				return false;
 			}
 			
-			
+			toggleTerminal(parent, p);
 			
 			ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
 
