@@ -237,7 +237,13 @@ public class TaskDAO {
 			catch(Exception e) {
 				outline = "1";
 			}
-
+			TeamDAO dao = new TeamDAO();
+			
+			LinkedList<Teammate> members = dao.getMemberList(parent, p);
+			for(Teammate t : members) {
+				dao.toggleTeammate(t.name, parent, p);
+				dao.toggleTeammate(t.name, task, p);
+			}
 
 
 			ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, ?, 0, 1);");
