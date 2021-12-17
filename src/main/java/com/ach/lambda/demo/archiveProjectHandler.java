@@ -22,8 +22,8 @@ LambdaLogger logger;
 		if (logger != null) { logger.log("in deleteProject \n"); }
 
 		ProjectsDAO dao = new ProjectsDAO();
-//		return dao.archiveProject(projectID); // Not created yet
-		return false;		
+		return dao.archiveProject(projectID); // Not created yet
+		//return false;		
 	}
 	
 	

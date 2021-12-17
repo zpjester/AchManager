@@ -25,8 +25,8 @@ LambdaLogger logger;
 		
 		boolean exist = dao.getTeammate(name, projectID);
 		if(exist) {
-//			return dao.toggleTeammate(name, taskName, projectID);
-			return false;
+			return dao.toggleTeammate(name, taskName, projectID);
+			//return false;
 		}
 		else {
 			return false;
