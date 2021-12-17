@@ -19,5 +19,5 @@ var renameTask_URL = base_url + ""; // POST
 
 
 var listProjects_URL = base_url + "/listProjects"; // GET
-var archiveProject_URL = base_url + ""; // POST
+var archiveProject_URL = base_url + "/archiveProject"; // POST
 var deleteProject_URL = base_url + "/deleteProject"; // POST

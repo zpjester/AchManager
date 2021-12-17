@@ -57,7 +57,8 @@ LambdaLogger logger;
 		return response;
 		
 		//*/
-		if(req.parentTaskName == null) {
+		if(req.parentTaskName == null || req.parentTaskName.contentEquals("null")) {
+			logger.log("\nAdding top-level task " + req.name + "\n");
 			try {
 				
 				if (addTask(req.name, req.projectID)) {
@@ -72,6 +73,7 @@ LambdaLogger logger;
 			}
 		}
 		else {
+			logger.log("\nAdding subtask " + req.name + " to " + req.parentTaskName + "\n");
 			try {
 				
 				if (addSubTask(req.name, req.projectID, req.parentTaskName)) {
