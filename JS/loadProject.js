@@ -40,10 +40,10 @@ function processLoadResponse(result) {
     var node = document.createElement("li");
 	var taskText = task.name;
 	if(task.isComplete){
-		taskText = taskText.concat(" Pretend there's a green check here");
+		taskText = taskText.concat('&#9989;');
 	}
 	else{
-		taskText = taskText.concat(" Pretend there's a red X here");
+		taskText = taskText.concat("&#10060;");
 	}
     var textnode = document.createTextNode(taskText);
 	node.name = "taskItem" + (i+1);
@@ -52,7 +52,7 @@ function processLoadResponse(result) {
 	
 	var teammateNode = document.createElement("SELECT");
 	teammateNode.name = "teammateDropdown" + (i+1);
-	document.getElementById("taskList").appendChild(teammateNode)
+	document.getElementById("taskList").appendChild(teammateNode);
 
 	for (let j = 0; j < result.taskList[i].teammateList.length; j++) {
 		var teammateOptionNode = document.createElement("OPTION");
@@ -61,6 +61,7 @@ function processLoadResponse(result) {
 		teammateOptionNode.appendChild(teammateOptionTextNode);
 		document.getElementById(teammateNode.name).appendChild(teammateOptionNode);	
 	}
+	document.getElementById("taskList").innerHTML = document.getElementById("taskList").innerHTML.replace("&amp;","&");
   }
   
   for (let i = 0; i < result.teammateList.length; i++) {
