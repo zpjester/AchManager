@@ -159,6 +159,73 @@ public class TaskDAO {
 			throw new Exception("Failed to add task: " + e.getMessage());
 		}
 	}
+	public boolean addSubTask(String task, String p, String parent) throws Exception {
+		try {
+			String parentID;
+			
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+
+			ps.setString(1, p);
+			ps.setString(2,  parent);
+
+			ResultSet resultSet = ps.executeQuery();
+
+			// already present?
+			if(resultSet.next()) {
+				parentID = resultSet.getString("TASKSid");
+			}
+			else {
+				resultSet.close();
+				return false;
+			}
+			
+			
+			
+			ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+
+			ps.setString(1, p);
+			ps.setString(2,  task);
+
+			resultSet = ps.executeQuery();
+
+			// already present?
+			while (resultSet.next()) {
+				resultSet.close();
+				return false;
+			}
+			
+			String outline;
+			try {
+				ps = conn.prepareStatement("select MAX(OutlineID) as mostRecent FROM mydb.TASKS WHERE ProjectID = ? and ParentTask is ?;");
+				ps.setString(1, p);
+				ps.setString(2, parentID);
+				resultSet = ps.executeQuery();
+				resultSet.next();
+				outline = String.valueOf(Integer.valueOf(resultSet.getString("mostRecent")) + 1);
+			}
+			catch(Exception e) {
+				outline = "1";
+			}
+
+
+
+			ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, ?, 0, 1);");
+			ps.setString(1,  UUID.randomUUID().toString().replace("-", ""));
+			ps.setString(2,  task);
+			ps.setString(3,  p);
+			ps.setString(4,  outline);
+			ps.setNString(5, parentID);
+
+
+			//            ps.setBoolean(2,  constant.isArchived);
+			ps.execute();
+			return true;
+
+
+		} catch (Exception e) {
+			throw new Exception("Failed to add task: " + e.getMessage());
+		}
+	}
 	public Task getTask(String t, String p) throws Exception {
 		try {
 			Task constant = null;

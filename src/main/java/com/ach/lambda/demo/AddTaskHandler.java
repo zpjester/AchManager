@@ -27,20 +27,19 @@ LambdaLogger logger;
 	boolean addTask(String name, String projectID) throws Exception { 
 		if (logger != null) { logger.log("in addTask \n"); }
 
+	
 		TaskDAO dao = new TaskDAO();
 		return dao.addTask(name, projectID);
-		/*
-		// check if present
-		Project exist = dao.getProject(name);
-		Project constant = new Project (name);
-		if (exist == null) {
-			return dao.addProject(constant);
-		} else {
-			return false;
-		}*/
-//		return false;
+		
 	}
+	boolean addSubTask(String name, String projectID, String parent) throws Exception { 
+		if (logger != null) { logger.log("in addTask \n"); }
+
 	
+		TaskDAO dao = new TaskDAO();
+		return dao.addSubTask(name, projectID, parent);
+		
+	}
 	
 	
 	@Override 
@@ -58,18 +57,33 @@ LambdaLogger logger;
 		return response;
 		
 		//*/
-		
-		try {
-			
-			if (addTask(req.name, req.projectID)) {
-				code = "200";
-			} else {
-				code = "404";
+		if(req.parentTaskName == null) {
+			try {
+				
+				if (addTask(req.name, req.projectID)) {
+					code = "200";
+				} else {
+					code = "404";
+				}
+			} catch (Exception e) {
+				code = "420";
+				e.printStackTrace();
+				
 			}
-		} catch (Exception e) {
-			code = "420";
-			e.printStackTrace();
-			
+		}
+		else {
+			try {
+				
+				if (addSubTask(req.name, req.projectID, req.parentTaskName)) {
+					code = "200";
+				} else {
+					code = "404";
+				}
+			} catch (Exception e) {
+				code = "420";
+				e.printStackTrace();
+				
+			}
 		}
 		response.put("code", code);
 		return response;
