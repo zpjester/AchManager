@@ -19,7 +19,7 @@ LambdaLogger logger;
 	 * @throws Exception 
 	 */
 	boolean archiveProject(String projectID) throws Exception { 
-		if (logger != null) { logger.log("in deleteProject \n"); }
+		if (logger != null) { logger.log("in archiveProject \n"); }
 
 		ProjectsDAO dao = new ProjectsDAO();
 		return dao.archiveProject(projectID); // Not created yet
@@ -30,7 +30,7 @@ LambdaLogger logger;
 	public JSONObject handleRequest(archiveProjectRequest req, Context context) {
 		logger = context.getLogger();
 		
-		logger.log("Archiving Project: " + req.toString() + "\n");
+		logger.log("Archiving Project: " + req.projectID + "\n");
 		
 		JSONObject response = new JSONObject();
 		String code = "";
@@ -51,6 +51,7 @@ LambdaLogger logger;
 			}
 		} catch (Exception e) {
 			code = "420";
+			logger.log(e.getStackTrace().toString());
 			
 		}
 		response.put("code", code);
