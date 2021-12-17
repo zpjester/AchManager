@@ -166,7 +166,7 @@ public boolean archiveProject(String projectID) throws SQLException {
     
     // already present?
     while (resultSet.next()) {
-    	ps = conn.prepareStatement("UPDATE" + tblName + "SET isAchived = 1 WHERE ProjectName = ?;");
+    	ps = conn.prepareStatement("UPDATE " + tblName + " SET isAchived = 1 WHERE ProjectName = ?;");
         
         ps.setString(1, projectID);
         
