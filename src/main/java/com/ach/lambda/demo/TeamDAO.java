@@ -38,6 +38,23 @@ public class TeamDAO {
 		
 	}
 	
+	public LinkedList<Teammate> getTeammateList(Task t) throws SQLException{
+		LinkedList<Teammate> members = new LinkedList<Teammate>();
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName2 + " WHERE Tid = ?;");
+		ps.setString(1, t.tasksID);
+        ResultSet resultSet = ps.executeQuery();
+        while (resultSet.next()) {
+            members.add(new Teammate(resultSet.getString(2)));
+        }
+		resultSet.close();
+		ps.close();
+//		members.add(new Teammate("Trumbus"));
+		return members;
+
+		
+	}
+	
 	
 	
 	public boolean getTeammate(String name, String projectID) throws SQLException{
@@ -116,12 +133,22 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
 	public boolean toggleTeammate(String name, String taskName, String projectID) throws Exception {
 		TaskDAO tdao = new TaskDAO();
 		Task task = tdao.getTask(taskName, projectID);
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName2 + " WHERE tid = ? and mid = ?;");
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName1 + " WHERE Pid = ? and Name = ?;");
+        
+        ps.setString(1, projectID);
+        ps.setString(2, name);
+        
+        ResultSet resultSet = ps.executeQuery();
+        
+        String mid = resultSet.getString(1);
+		
+		 ps = conn.prepareStatement("SELECT * FROM " + tblName2 + " WHERE tid = ? and mid = ?;");
         
         ps.setString(1, task.tasksID);
-        ps.setString(2, name);
+        ps.setString(2, mid);
 		
-        ResultSet resultSet = ps.executeQuery();
+         resultSet = ps.executeQuery();
 
     	//ps.close();
         while (resultSet.next()) {
@@ -129,15 +156,14 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
         	ps = conn.prepareStatement("DELETE FROM " + tblName2 + " WHERE tid = ? and mid = ?;");
             
             ps.setString(1, task.tasksID);
-            ps.setString(2, name);
+            ps.setString(2, mid);
         	ps.execute();
             resultSet.close();
             return true;
         }
-        PreparedStatement ps2 = conn.prepareStatement("INSERT INTO " + tblName2 + " (Tid, Mid) values((SELECT t FROM "+ tblName3 + " WHERE TASKid = ?)(SELECT ta from "+ tblName1 + " WHERE Pid = ? and Name = ?));");
+        PreparedStatement ps2 = conn.prepareStatement("INSERT INTO " + tblName2 + " (Tid, Mid) values((SELECT t FROM "+ tblName3 + " WHERE TASKid = ?)(SELECT ta from "+ tblName1 + " WHERE MEMDERSid = ?));");
         ps2.setString(1, task.tasksID);
-        ps2.setNString(2, projectID);
-        ps2.setString(3, name);
+        ps2.setString(2, mid);
     	ps2.execute();
 		return true;
 	}
