@@ -259,7 +259,9 @@ public class TaskDAO {
 
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("Failed to add task: " + e.getMessage());
+			
 		}
 	}
 	public Task getTask(String t, String p) throws Exception {

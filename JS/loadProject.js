@@ -45,7 +45,18 @@ while(taskList.firstChild){
 // Put all tasks in task list
   for (let i = 0; i < result.taskList.length; i++) {
 	var task = result.taskList[i];
-    var node = document.createElement("li");
+	var parent;
+	if(task.parentTask == null){
+		parent = "taskList";
+		console.log("Trying to append top-level task");
+	}else{
+		parent = task.parentTask + "subTasksList";
+		console.log("Trying to append task to: " + parent);
+	}
+	
+	if(document.getElementById(parent)){
+		console.log("Parent found!");
+		 var node = document.createElement("li");
 	var taskText = task.name;
 	if(task.isComplete){
 		taskText = taskText.concat('&#9989;');
@@ -53,11 +64,33 @@ while(taskList.firstChild){
 	else{
 		taskText = taskText.concat("&#10060;");
 	}
+	parentNode = document.getElementById(parent);
 	
     var textnode = document.createTextNode(taskText);
 	node.name = "taskItem" + (i+1);
+	node.id = task.name;
     node.appendChild(textnode);
-    document.getElementById("taskList").appendChild(node);
+
+    var subTasksList = document.createElement("ol");
+    subTasksList.id = task.name + "subTasksList";
+    node.appendChild(subTasksList);
+
+	var taskTeammates = document.createElement("ul");
+    taskTeammates.id = task.name + "teammateList";
+    node.appendChild(taskTeammates);
+
+
+
+	var teammates = task.teammateList;
+	for (let teammate of teammates){
+		var tmNode = document.createElement("li");
+		tmNode.innerHTML = teammate.name;
+		taskTeammates.appendChild(tmNode);
+	}
+	
+	
+	
+    parentNode.appendChild(node);
 	
 	// Teammate list
 	//not working
@@ -74,6 +107,9 @@ while(taskList.firstChild){
 		document.getElementById(teammateNode.name).appendChild(teammateOptionNode);	
 	}*/
 	document.getElementById("taskList").innerHTML = document.getElementById("taskList").innerHTML.replace("&amp;","&");
+	}
+	
+   
   }
   
 var dropdownString = "<option value=\"\" disabled selected>Select a teammate</option>";
@@ -111,7 +147,7 @@ function loopThroughTasks(taskList, tm, tmTasks) {
 			}
 		}
 		else {
-			loopThroughTasks(taskList[i].taskList, tm, tmTasks);
+			//loopThroughTasks(taskList[i].taskList, tm, tmTasks);
 		}
 	}
 	return tmTasks;
@@ -130,14 +166,14 @@ function handleToggleTeammateViewClick(e) {
 			console.log("Scanning for tasks with " + tm);
 			var tmTasks = [];
 			tmTasks = loopThroughTasks(projectData.taskList, tm, tmTasks);
-			tmTasks.push("test");
+			//tmTasks.push("test");
 			console.log("TM Task list length = " + tmTasks.length);
 			var node = document.createElement("ul");
 			node.id = "teammateTasks" + (i+1);
 			for (let j = 0; j < tmTasks.length; j++) {
 				var subNode = document.createElement("li");
-				var name = tmTasks[j].name;
-				//var name = "testName";
+				var name = tmTasks[j];
+				console.log("Creating task listing " + name + " for " + tm);
 				var textnode = document.createTextNode(name);
 				node.appendChild(subNode).appendChild(textnode);
 				document.getElementById("teammate" + (i+1)).appendChild(node);
@@ -145,9 +181,8 @@ function handleToggleTeammateViewClick(e) {
 		}
 	}
 	else {
-		for (let i = 0; i < projectData.teammateList.length; i++) {
-			document.getElementById("teammateTasks" + (i+1)).remove();
-		}
+		
+		loadProject(projectData.projectID);
 	}
 }
 

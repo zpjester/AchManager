@@ -1,19 +1,13 @@
-function handleAddTaskClick(e) {
-  var form = document.getElementById("addTaskForm");
+
+function handleArchiveProjectClick(e) {
   // console.log("Creating project with " + e.createForm.JSON.stringify);
-	var output = document.getElementById("output");
-	var projName = output.innerText;
   
-  console.log(projName);
+  // console.log("Creating project with " + e.createForm.JSON.stringify);
   
-
-
-var taskName = form.taskName.value;
-var parentTaskName = form.parentTaskName.value;
-
-if(parentTaskName == ""){
-	parentTaskName = "null";
-}
+  //var projForm = document.getElementById("deleteProject");
+  var dropdown = document.getElementById("deleteDropdown");
+  var projName = dropdown.value;
+  
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
   // }
@@ -21,15 +15,15 @@ if(parentTaskName == ""){
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTask_url + "/" + projName + "?taskID="+ taskName + "&parentTaskName=" + parentTaskName;
+  var projURL = archiveProject_URL + "?projectID=" + projName;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);
   xhr.open("POST", projURL, true);
-  
+  console.log("Post request sent!");
 
 	xhr.send();
-console.log("Post request sent!");
+
 
   // This will process results and update HTML as appropriate. 
   xhr.onloadend = function () {
@@ -40,15 +34,8 @@ console.log("Post request sent!");
     	 if (xhr.status == 200) {
 	      //console.log ("XHR:" + xhr.responseText);
 	      //processAddTeammateResponse(xhr.responseText);
-		loadProject(projName);
-    	 } else {
-    		 console.log("actual:" + xhr.responseText)
-			  var js = JSON.parse(xhr.responseText);
-			  var err = js["response"];
-			  alert (err);
+		refreshProjectsList();
     	 }
-    } else {
-      processAddTaskResponse("N/A");
-    }
   };
+}
 }
