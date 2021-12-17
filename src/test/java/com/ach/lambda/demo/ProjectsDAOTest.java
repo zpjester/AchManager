@@ -18,9 +18,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
-public class TaskDAOTest {
+public class ProjectsDAOTest {
 
-    private static TaskDAO input;
+    private static ProjectsDAO input;
 
     @BeforeClass
     public static void createInput() throws IOException {
@@ -38,24 +38,15 @@ public class TaskDAOTest {
     }
 
     @Test
-    public void testLinkedList() throws Exception {
-    	input = new TaskDAO();
-    	input.addSubTask("task1", "JUnitReadOnly", "t2");
-    	Assert.assertEquals(input.addSubTask("", "", ""),input.addSubTask("task1", "JUnitReadOnly", "t2"));
+    public void testGetProject() throws Exception {
+    	input = new ProjectsDAO();
+    	input.getProject(null);
+    	Assert.assertEquals("",input.addProject(null));
     }
     @Test
     public void testToggleComplete() throws Exception {
-    	input = new TaskDAO();
-    	input.toggleComplete("task1", "JUnitReadOnly");
-    	input.addTask("123", "t2");
-    	input.toggleComplete("task1", "JUnitReadOnly");
-    	input.renameTask("JUnitReadOnly", "task1", "Hhhi");
-    	input.getComplete("");
-    	input.addTask("task1", "JUnitReadOnly");
-    	input.getTaskList("");
-    	input.getTask("", "");
-    	input.toggleTerminal("", "");
-    	boolean b = input.toggleComplete("", "");
+    	input = new ProjectsDAO();
+    	input.getProjectData("JUnitReadOnly");
         LoadProject handler = new LoadProject();
         Context ctx = createContext();
 
