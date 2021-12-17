@@ -9,7 +9,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.AmazonS3;
 import org.json.simple.JSONObject; 
-public class AddTaskHandler implements RequestHandler<AddTaskRequest,JSONObject>{
+public class renameTaskHandler implements RequestHandler<renameTaskRequest,JSONObject>{
 
 LambdaLogger logger;
 	
@@ -24,29 +24,32 @@ LambdaLogger logger;
 	 * 
 	 * @throws Exception 
 	 */
-	boolean addTask(String name, String projectID) throws Exception { 
+	boolean renameTask(String name, String projectID, String newName) throws Exception { 
 		if (logger != null) { logger.log("in addTask \n"); }
 
-	
 		TaskDAO dao = new TaskDAO();
-		return dao.addTask(name, projectID);
+		return dao.renameTask(projectID, name, newName); // not implemented
+		//return false;
 		
+		/*
+		// check if present
+		Project exist = dao.getProject(name);
+		Project constant = new Project (name);
+		if (exist == null) {
+			return dao.addProject(constant);
+		} else {
+			return false;
+		}*/
+//		return false;
 	}
-	boolean addSubTask(String name, String projectID, String parent) throws Exception { 
-		if (logger != null) { logger.log("in addTask \n"); }
-
 	
-		TaskDAO dao = new TaskDAO();
-		return dao.addSubTask(name, projectID, parent);
-		
-	}
 	
 	
 	@Override 
-	public JSONObject handleRequest(AddTaskRequest req, Context context)  {
+	public JSONObject handleRequest(renameTaskRequest req, Context context)  {
 		logger = context.getLogger();
 		
-		logger.log("Adding Task: " + req.toString() + "\n");
+		logger.log("Renaming Task: " + req.toString() + "\n");
 		
 		JSONObject response = new JSONObject();
 		String code = "";
@@ -57,33 +60,18 @@ LambdaLogger logger;
 		return response;
 		
 		//*/
-		if(req.parentTaskName == null) {
-			try {
-				
-				if (addTask(req.name, req.projectID)) {
-					code = "200";
-				} else {
-					code = "404";
-				}
-			} catch (Exception e) {
-				code = "420";
-				e.printStackTrace();
-				
+		
+		try {
+			
+			if (renameTask(req.name, req.projectID, req.newName)) {
+				code = "200";
+			} else {
+				code = "404";
 			}
-		}
-		else {
-			try {
-				
-				if (addSubTask(req.name, req.projectID, req.parentTaskName)) {
-					code = "200";
-				} else {
-					code = "404";
-				}
-			} catch (Exception e) {
-				code = "420";
-				e.printStackTrace();
-				
-			}
+		} catch (Exception e) {
+			code = "420";
+			e.printStackTrace();
+			
 		}
 		response.put("code", code);
 		return response;

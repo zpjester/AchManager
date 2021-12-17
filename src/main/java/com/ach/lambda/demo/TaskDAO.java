@@ -159,6 +159,73 @@ public class TaskDAO {
 			throw new Exception("Failed to add task: " + e.getMessage());
 		}
 	}
+	public boolean addSubTask(String task, String p, String parent) throws Exception {
+		try {
+			String parentID;
+			
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+
+			ps.setString(1, p);
+			ps.setString(2,  parent);
+
+			ResultSet resultSet = ps.executeQuery();
+
+			// already present?
+			if(resultSet.next()) {
+				parentID = resultSet.getString("TASKSid");
+			}
+			else {
+				resultSet.close();
+				return false;
+			}
+			
+			
+			
+			ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+
+			ps.setString(1, p);
+			ps.setString(2,  task);
+
+			resultSet = ps.executeQuery();
+
+			// already present?
+			while (resultSet.next()) {
+				resultSet.close();
+				return false;
+			}
+			
+			String outline;
+			try {
+				ps = conn.prepareStatement("select MAX(OutlineID) as mostRecent FROM mydb.TASKS WHERE ProjectID = ? and ParentTask is ?;");
+				ps.setString(1, p);
+				ps.setString(2, parentID);
+				resultSet = ps.executeQuery();
+				resultSet.next();
+				outline = String.valueOf(Integer.valueOf(resultSet.getString("mostRecent")) + 1);
+			}
+			catch(Exception e) {
+				outline = "1";
+			}
+
+
+
+			ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, ?, 0, 1);");
+			ps.setString(1,  UUID.randomUUID().toString().replace("-", ""));
+			ps.setString(2,  task);
+			ps.setString(3,  p);
+			ps.setString(4,  outline);
+			ps.setNString(5, parentID);
+
+
+			//            ps.setBoolean(2,  constant.isArchived);
+			ps.execute();
+			return true;
+
+
+		} catch (Exception e) {
+			throw new Exception("Failed to add task: " + e.getMessage());
+		}
+	}
 	public Task getTask(String t, String p) throws Exception {
 		try {
 			Task constant = null;
@@ -202,6 +269,34 @@ public class TaskDAO {
 	private Task generateTask(ResultSet resultSet) throws Exception {
 		TeamDAO dao = new TeamDAO();
 		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),dao.getMemberList(resultSet.getString(2)),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6));
+	}
+	public boolean renameTask(String projectID, String name, String newName) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+
+		ps.setString(1, projectID);
+		ps.setString(2,  name);
+
+		ResultSet resultSet = ps.executeQuery();
+
+		if (!(resultSet.next())) {
+			return false;
+		}
+		//boolean current = resultSet.getBoolean("isCompleted");
+
+		ps = conn.prepareStatement("UPDATE " + tblName + " SET Name = ? WHERE ProjectID = ? and Name = ?;"
+				);
+//				,ResultSet.TYPE_SCROLL_SENSITIVE, 
+//				ResultSet.CONCUR_UPDATABLE);
+
+		ps.setString(2, projectID);
+
+		ps.setString(3, name);
+
+		ps.setString(1, newName);
+		
+		ps.execute();
+
+		return true;
 	}
 
 

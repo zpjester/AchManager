@@ -32,7 +32,7 @@ public class ProjectsDAO {
             
             // already present?
             while (resultSet.next()) {
-            	Project c = generateProject(resultSet);
+            	//Project c = generateProject(resultSet);
                 resultSet.close();
                 return false;
             }
@@ -156,14 +156,32 @@ public boolean deleteProject(String p) throws SQLException {
 		//return false;
 	}
 
-public boolean archiveProject(String projectID) {
-	//PreparedStatement ps = conn.prepareStatement("UPDATE" + tblName + "SET isAchived = 1 WHERE ProjectName = ?;");
-    
-   // ps.setString(1, p);
-    
-    //ResultSet resultSet = ps.executeQuery();
+public boolean archiveProject(String projectID) throws SQLException {
 	
-	return false;
+	PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectName = ?;");
+    
+    ps.setString(1, projectID);
+    
+    ResultSet resultSet = ps.executeQuery();
+    
+    // already present?
+    while (resultSet.next()) {
+    	ps = conn.prepareStatement("UPDATE " + tblName + " SET isAchived = 1 WHERE ProjectName = ?;");
+        
+        ps.setString(1, projectID);
+        
+        ps.execute();
+    	
+    	return true;
+    	
+    	
+    }
+  //Project c = generateProject(resultSet);
+    resultSet.close();
+    return false;
+
+	
+	
 }
 
 }
