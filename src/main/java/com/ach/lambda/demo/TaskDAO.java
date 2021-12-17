@@ -268,7 +268,23 @@ public class TaskDAO {
 
 	private Task generateTask(ResultSet resultSet) throws Exception {
 		TeamDAO dao = new TeamDAO();
-		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),dao.getMemberList(resultSet.getString(2)),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6));
+		Task t = new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),dao.getMemberList(resultSet.getString(2)),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6));
+		
+		String parentName = null;
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE TASKSid = ?;");
+
+		ps.setString(1, resultSet.getString(5));
+
+		resultSet = ps.executeQuery();
+
+		// already present?
+		if(resultSet.next()) {
+			parentName = resultSet.getString("Name");
+		}
+		t.parentTask = parentName;
+		
+		return t;
 	}
 	public boolean renameTask(String projectID, String name, String newName) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
