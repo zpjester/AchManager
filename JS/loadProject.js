@@ -97,6 +97,15 @@ var dropdownString = "<option value=\"\" disabled selected>Select a teammate</op
   teammateDropdown.innerHTML = dropdownString;
 }
 
+function handleToggleTeammateViewClick(e) {
+	var teammateForm = document.getElementById("addTeammateForm");
+	teammateForm.hidden = !teammateForm.hidden;
+	var taskList = document.getElementById("taskList");
+	taskList.hidden = !taskList.hidden;
+	var taskForm = document.getElementById("addTaskForm");
+	taskForm.hidden = !taskForm.hidden;
+}
+
 function handleLoadClick(e) {
 	var form = document.loadProj;
 	var name = form.projectName.value;
@@ -115,6 +124,7 @@ function loadProject(projName){
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
+  document.getElementById("teammateViewButton").hidden = false;
   var projURL = projectView_url + "/" + projName;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
