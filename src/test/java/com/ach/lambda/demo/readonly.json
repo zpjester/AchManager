@@ -1,0 +1,53 @@
+{
+    "archived": false,
+    "teammateList": [
+        {
+            "name": "Gregg"
+        },
+        {
+            "name": "Zekk"
+        },
+        {
+            "name": "Jeph"
+        }
+    ],
+    "code": 200,
+    "taskList": [
+        {
+            "outlineID": "1",
+            "teammateList": [],
+            "parentTask": null,
+            "name": "t1",
+            "isTerminal": false,
+            "isComplete": false
+        },
+        {
+            "outlineID": "2",
+            "teammateList": [
+                {
+                    "name": "Gregg"
+                }
+            ],
+            "parentTask": null,
+            "name": "t2",
+            "isTerminal": true,
+            "isComplete": false
+        },
+        {
+            "outlineID": "1",
+            "teammateList": [
+                {
+                    "name": "Gregg"
+                },
+                {
+                    "name": "Zekk"
+                }
+            ],
+            "parentTask": "t1",
+            "name": "t3",
+            "isTerminal": true,
+            "isComplete": true
+        }
+    ],
+    "projectID": "JUnitReadOnly"
+}

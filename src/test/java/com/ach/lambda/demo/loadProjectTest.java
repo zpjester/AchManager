@@ -1,7 +1,12 @@
 package com.ach.lambda.demo;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,12 +18,12 @@ import com.amazonaws.services.lambda.runtime.Context;
  */
 public class loadProjectTest {
 
-    private static Object input;
+    private static LoadProjectRequest input;
 
     @BeforeClass
     public static void createInput() throws IOException {
         // TODO: set up your sample input object here.
-        input = null;
+        
     }
 
     private Context createContext() {
@@ -30,14 +35,20 @@ public class loadProjectTest {
         return ctx;
     }
 
-    /*@Test
-    public void testloadProject() {
-        loadProject handler = new loadProject();
+    @Test
+    public void testloadProject() throws FileNotFoundException, IOException, ParseException {
+    	input = new LoadProjectRequest("JUnitReadOnly");
+        LoadProject handler = new LoadProject();
         Context ctx = createContext();
 
-        String output = handler.handleRequest(input, ctx);
-
+        JSONObject output = handler.handleRequest(input, ctx);
+        JSONParser parser = new JSONParser();
         // TODO: validate output here if needed.
-        Assert.assertEquals("Hello from Lambda!", output);
-    }*/
+        Object obj = parser.parse(new FileReader("readonly.json"));
+        
+		// A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
+		JSONObject jsonObject = (JSONObject) obj;
+        Assert.assertEquals(jsonObject, output);
+    }
+    
 }
