@@ -6,6 +6,8 @@
   <script type="text/javascript" src="../JS/addTask.js"></script>
   <script type="text/javascript" src="../JS/toggleTeammate.js"></script>
   <script type="text/javascript" src="../JS/toggleComplete.js"></script>
+  <script type="text/javascript" src="../JS/renameTask.js"></script>
+  <script type="text/javascript" src="../JS/decomposeTask.js"></script>
   <script type="text/javascript" src="../JS/api.js"></script>
   
   
@@ -42,7 +44,7 @@
  
   <form hidden = true id="addTaskForm" method="post">
   		<input id="taskName" placeholder="Enter name of task to create / mark complete / assign teammate to">
-  		<input id="parentTaskName" placeholder="Enter name of parent task if assigning subtask">
+  		
   		<select id="teammateDropdown" name="teammateDropdown">
   		 <option value="" disabled selected>Select a teammate</option>
   		</select>
@@ -50,6 +52,7 @@
       <input type="button" value="Toggle Complete" onclick="JavaScript:handleToggleCompleteClick()">
       <input type="button" value="Toggle Teammate" onclick="JavaScript:handleToggleTeammateClick()">
       <input type="button" value="Rename Task" onclick="JavaScript:handleRenameTaskClick()">
+      <input type="button" value="Decompose Task" onclick="JavaScript:handleDecomposeTaskClick()">
   </form>
   
   </body></html>

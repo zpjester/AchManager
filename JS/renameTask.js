@@ -1,23 +1,16 @@
-function handleAddTaskClick(e) {
+function handleRenameTaskClick(e) {
   var form = document.getElementById("addTaskForm");
   // console.log("Creating project with " + e.createForm.JSON.stringify);
+	var output = document.getElementById("output");
+	var projName = output.innerText;
+  
+  console.log(projName);
   
 
 
+var oldTaskName = form.taskName.value;
 
-var taskName = form.taskName.value;
-let parentTaskName = prompt("Enter parent task name, or leave blank for top level task:");
 
-addTask(taskName, parentTaskName);
-}
-
-function addTask(taskName, parentTaskName){
-if(parentTaskName == ""){
-	parentTaskName = "null";
-}
-
-var output = document.getElementById("output");
-	var projName = output.innerText;
   // if (form.system.checked) {  // be sure to flag system constant requests...
   //    data["system"] = true;
   // }
@@ -25,7 +18,9 @@ var output = document.getElementById("output");
   // data["value"] = form.constantValue.value;
 
   // var js = JSON.stringify(data);
-  var projURL = addTask_url + "/" + projName + "?taskID="+ taskName + "&parentTaskName=" + parentTaskName;
+
+  let newTaskName = prompt("Enter new task name:");
+  var projURL = renameTask_url + "/" + projName + "?newTaskName="+ newTaskName + "&oldTaskName=" + oldTaskName;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
   console.log("Preparing to open POST at " + projURL);

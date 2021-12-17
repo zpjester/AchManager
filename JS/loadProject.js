@@ -142,7 +142,15 @@ function loopThroughTasks(taskList, tm, tmTasks) {
 				
 				if(listedTeammate.name == tm){
 					console.log("Found teammate " + tm + " in " + taskList[i].name);
-					tmTasks.push(taskList[i].name);
+					var taskText = taskList[i].name;
+					if(taskList[i].isComplete){
+						taskText = taskText.concat('&#9989;');
+					}
+					else{
+						taskText = taskText.concat("&#10060;");
+					}
+					
+					tmTasks.push(taskText);
 				}
 			}
 		}
@@ -177,8 +185,10 @@ function handleToggleTeammateViewClick(e) {
 				var textnode = document.createTextNode(name);
 				node.appendChild(subNode).appendChild(textnode);
 				document.getElementById("teammate" + (i+1)).appendChild(node);
+				document.getElementById("teammateList").innerHTML = document.getElementById("teammateList").innerHTML.replace("&amp;","&");
 			}
 		}
+	
 	}
 	else {
 		

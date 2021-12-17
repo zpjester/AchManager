@@ -15,7 +15,7 @@ var splitTask_URL = base_url + ""; // POST
 var markTask_URL = base_url + ""; // POST
 var assignTeammate_URL = base_url + ""; // POST
 var unassignTeammate_URL = base_url + ""; // POST
-var renameTask_URL = base_url + ""; // POST
+var renameTask_url = base_url + "/renameTask"; // POST
 
 
 var listProjects_URL = base_url + "/listProjects"; // GET

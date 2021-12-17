@@ -1,8 +1,10 @@
 
 
-function handleToggleTeammateClick(e) {
-  var teammateForm = document.getElementById("addTeammateForm");
-  var taskForm = document.getElementById("addTaskForm");
+
+	
+	
+function toggleTeammate(teammate, task){
+ 
   // console.log("Creating project with " + e.createForm.JSON.stringify);
 	var output = document.getElementById("output");
 	var projName = output.innerText;
@@ -17,8 +19,7 @@ function handleToggleTeammateClick(e) {
 
   // var js = JSON.stringify(data);
 
-  var teammate = teammateDropdown.value;
-  var task = taskForm.taskName.value;
+  
   var projURL = toggleTeammate_url + "/" + projName + "?teammateID="+teammate + "&taskName=" + task;
   // console.log("JS:" + js);
   var xhr = new XMLHttpRequest();
@@ -46,7 +47,7 @@ function handleToggleTeammateClick(e) {
 		if(responseObj.code == 200){
 			loadProject(projName);
 		} else{
-			alert("Cannot toggle assignment " + teammate + " to " + task);
+			//alert("Cannot toggle assignment " + teammate + " to " + task);
 			loadProject(projName);
 		}
 		
@@ -54,3 +55,12 @@ function handleToggleTeammateClick(e) {
   };
 }
 }
+
+function handleToggleTeammateClick() {
+	 var teammateForm = document.getElementById("addTeammateForm");
+  var taskForm = document.getElementById("addTaskForm");
+	var teammate = teammateDropdown.value;
+  var task = taskForm.taskName.value;
+	toggleTeammate(teammate, task);
+	
+	}
