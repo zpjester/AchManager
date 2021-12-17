@@ -43,12 +43,18 @@ public class loadProjectTest {
 
         JSONObject output = handler.handleRequest(input, ctx);
         JSONParser parser = new JSONParser();
+        
+        LoadProjectList handler2 = new LoadProjectList();
+        Context ctx2 = createContext();
+        JSONObject input2 = new JSONObject();
+        JSONObject output2 = handler2.handleRequest(input2, ctx2);
         // TODO: validate output here if needed.
         Object obj = parser.parse(new FileReader("readonly.json"));
         
 		// A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
 		JSONObject jsonObject = (JSONObject) obj;
         Assert.assertEquals(jsonObject, output);
+        Assert.assertEquals(jsonObject, output2);
     }
     
 }
