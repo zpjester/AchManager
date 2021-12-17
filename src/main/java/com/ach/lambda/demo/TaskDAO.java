@@ -199,9 +199,9 @@ public class TaskDAO {
 
 	}
 
-	private Task generateTask(ResultSet resultSet) throws SQLException {
-
-		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),new LinkedList<Teammate>(),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6));
+	private Task generateTask(ResultSet resultSet) throws Exception {
+		TeamDAO dao = new TeamDAO();
+		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),dao.getMemberList(resultSet.getString(2)),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6));
 	}
 
 
