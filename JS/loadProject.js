@@ -52,7 +52,7 @@ function processLoadResponse(result) {
 	
 	var teammateNode = document.createElement("SELECT");
 	teammateNode.name = "teammateDropdown" + (i+1);
-	document.getElementById("taskList").appendChild(teammateNode)
+	document.getElementById("taskList").appendChild(teammateNode);
 
 	for (let j = 0; j < result.taskList[i].teammateList.length; j++) {
 		var teammateOptionNode = document.createElement("OPTION");
