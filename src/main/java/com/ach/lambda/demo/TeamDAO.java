@@ -63,7 +63,7 @@ public class TeamDAO {
 LinkedList<Teammate> members = new LinkedList<Teammate>();
 		
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName1 + " WHERE Pid = ?;");
-		ps.setString(1, name);
+		ps.setString(1, projectID);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
             members.add(new Teammate(resultSet.getString(2)));
@@ -72,7 +72,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
 		ps.close();
 		
 		for(Teammate tm: members) {
-			if(tm.name == name) {
+			if(tm.name.equals(name)) {
 				return true;
 			}
 		}
@@ -140,7 +140,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
         ps.setString(2, name);
         
         ResultSet resultSet = ps.executeQuery();
-        
+        resultSet.next();
         String mid = resultSet.getString(1);
 		
 		 ps = conn.prepareStatement("SELECT * FROM " + tblName2 + " WHERE tid = ? and mid = ?;");
@@ -161,7 +161,7 @@ LinkedList<Teammate> members = new LinkedList<Teammate>();
             resultSet.close();
             return true;
         }
-        PreparedStatement ps2 = conn.prepareStatement("INSERT INTO " + tblName2 + " (Tid, Mid) values((SELECT t FROM "+ tblName3 + " WHERE TASKid = ?)(SELECT ta from "+ tblName1 + " WHERE MEMDERSid = ?));");
+        PreparedStatement ps2 = conn.prepareStatement("INSERT INTO " + tblName2 + " (Tid, Mid) values((SELECT tasksID FROM "+ tblName3 + " WHERE TASKsid = ?),(SELECT MEMDERSid from "+ tblName1 + " WHERE MEMDERSid = ?));");
         ps2.setString(1, task.tasksID);
         ps2.setString(2, mid);
     	ps2.execute();
