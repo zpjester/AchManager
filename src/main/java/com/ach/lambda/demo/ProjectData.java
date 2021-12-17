@@ -96,6 +96,13 @@ public class ProjectData {
 	    this.archived = false;
 	    this.system = code;
 	}
+	public ProjectData(String projectID, int code, boolean a) {
+		this.projectID = projectID;
+	    this.teammateList = new LinkedList<Teammate>();
+	    this.taskList = new LinkedList<Task>();
+	    this.archived = a;
+	    this.system = code;
+	}
 	
 	public ProjectData(String projectID, LinkedList<Teammate> teammateList, LinkedList<Task> taskList) {
 		this.projectID = projectID;

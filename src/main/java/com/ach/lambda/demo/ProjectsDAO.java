@@ -123,7 +123,7 @@ public class ProjectsDAO {
 
 	private ProjectData generateProjectData(ResultSet resultSet) throws SQLException {
 		String name  = resultSet.getString("ProjectName");
-        return new ProjectData (name, 200);
+        return new ProjectData (name, 200, resultSet.getBoolean(2));
 	}
 
 	private Project generateProject(ResultSet resultSet) throws SQLException {
