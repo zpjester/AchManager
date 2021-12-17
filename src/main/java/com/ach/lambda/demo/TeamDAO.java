@@ -38,11 +38,12 @@ public class TeamDAO {
 		
 	}
 	
-	public LinkedList<Teammate> getMemberList(String t) throws SQLException{
+	public LinkedList<Teammate> getMemberList(String t, String p) throws SQLException{
 		LinkedList<Teammate> members = new LinkedList<Teammate>();
 		
-		PreparedStatement ps = conn.prepareStatement("select mem.Name from mydb.TASKS inner join (SELECT ASSIGNMENTS.Tid as tid, MEMBERS.Name as name FROM mydb.ASSIGNMENTS inner join MEMBERS on MEMBERS.MEMDERSid = ASSIGNMENTS.Mid) as mem on TASKS.TASKSid = mem.tid where TASKS.Name = ?;");
-		ps.setString(1, t);
+		PreparedStatement ps = conn.prepareStatement("select mem.Name from mydb.TASKS inner join (SELECT ASSIGNMENTS.Tid as tid, MEMBERS.Name as name FROM mydb.ASSIGNMENTS inner join MEMBERS on MEMBERS.MEMDERSid = ASSIGNMENTS.Mid) as mem on TASKS.TASKSid = mem.tid where Tasks.projectID = ? and TASKS.Name = ?;");
+		ps.setString(1, p);
+		ps.setString(2, t);
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
             members.add(new Teammate(resultSet.getString(1)));
