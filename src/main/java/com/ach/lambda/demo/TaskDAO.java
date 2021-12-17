@@ -237,29 +237,24 @@ public class TaskDAO {
 			catch(Exception e) {
 				outline = "1";
 			}
-			TeamDAO dao = new TeamDAO();
-			
-			LinkedList<Teammate> members = dao.getMemberList(parent, p);
-			for(Teammate t : members) {
-				dao.toggleTeammate(t.name, parent, p);
-			}
-
 
 			ps = conn.prepareStatement("insert into mydb.TASKS (TASKSid, Name, ProjectID, OutlineID, ParentTask, isCompleted, isTerminal) values(?,?,?,?, ?, 0, 1);");
 			ps.setString(1,  UUID.randomUUID().toString().replace("-", ""));
 			ps.setString(2,  task);
 			ps.setString(3,  p);
 			ps.setString(4,  outline);
-			ps.setNString(5, parentID);
+			ps.setString(5, parentID);
 
 
 			//            ps.setBoolean(2,  constant.isArchived);
 			ps.execute();
-			
+			TeamDAO dao = new TeamDAO();
+			LinkedList<Teammate> members = dao.getMemberList(parent, p);
 			for(Teammate t : members) {
+				dao.toggleTeammate(t.name, parent, p);
 				dao.toggleTeammate(t.name, task, p);
 			}
-			
+			toggleTerminal(parent, p);
 			return true;
 
 
