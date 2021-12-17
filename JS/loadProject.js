@@ -91,10 +91,30 @@ var dropdownString = "<option value=\"\" disabled selected>Select a teammate</op
     var textnode = document.createTextNode(name);
     node.appendChild(textnode);
     document.getElementById("teammateList").appendChild(node);
+	node.id = "teammate" + (i+1);
     dropdownString = dropdownString + "<option value =" + name + ">" + name + "</option>";
   }
 // Push teammate list to selector dropdown
   teammateDropdown.innerHTML = dropdownString;
+}
+
+function loopThroughTasks(taskList, tm, tmTasks) {
+	for (let i = 0; i < taskList.length; i++) {
+		if (taskList[i].isTerminal) {
+				tml = taskList[i].teammateList;
+			for (let listedTeammate of tml){
+				
+				if(listedTeammate.name == tm){
+					console.log("Found teammate " + tm + " in " + taskList[i].name);
+					tmTasks.push(taskList[i].name);
+				}
+			}
+		}
+		else {
+			loopThroughTasks(taskList[i].taskList, tm, tmTasks);
+		}
+	}
+	return tmTasks;
 }
 
 function handleToggleTeammateViewClick(e) {
@@ -104,6 +124,31 @@ function handleToggleTeammateViewClick(e) {
 	taskList.hidden = !taskList.hidden;
 	var taskForm = document.getElementById("addTaskForm");
 	taskForm.hidden = !taskForm.hidden;
+	if (taskForm.hidden) {
+		for (let i = 0; i < projectData.teammateList.length; i++) {
+		    var tm = projectData.teammateList[i].name;
+			console.log("Scanning for tasks with " + tm);
+			var tmTasks = [];
+			tmTasks = loopThroughTasks(projectData.taskList, tm, tmTasks);
+			tmTasks.push("test");
+			console.log("TM Task list length = " + tmTasks.length);
+			var node = document.createElement("ul");
+			node.id = "teammateTasks" + (i+1);
+			for (let j = 0; j < tmTasks.length; j++) {
+				var subNode = document.createElement("li");
+				var name = tmTasks[j].name;
+				//var name = "testName";
+				var textnode = document.createTextNode(name);
+				node.appendChild(subNode).appendChild(textnode);
+				document.getElementById("teammate" + (i+1)).appendChild(node);
+			}
+		}
+	}
+	else {
+		for (let i = 0; i < projectData.teammateList.length; i++) {
+			document.getElementById("teammateTasks" + (i+1)).remove();
+		}
+	}
 }
 
 function handleLoadClick(e) {
