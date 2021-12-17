@@ -227,7 +227,7 @@ public class TaskDAO {
 			
 			String outline;
 			try {
-				ps = conn.prepareStatement("select MAX(OutlineID) as mostRecent FROM mydb.TASKS WHERE ProjectID = ? and ParentTask is ?;");
+				ps = conn.prepareStatement("select MAX(OutlineID) as mostRecent FROM mydb.TASKS WHERE (ProjectID = ? and ParentTask = ?);");
 				ps.setString(1, p);
 				ps.setString(2, parentID);
 				resultSet = ps.executeQuery();
