@@ -203,6 +203,34 @@ public class TaskDAO {
 		TeamDAO dao = new TeamDAO();
 		return new Task(resultSet.getString(1),resultSet.getString(2),resultSet.getString(4),dao.getMemberList(resultSet.getString(2)),resultSet.getString(5),resultSet.getBoolean(7),resultSet.getBoolean(6));
 	}
+	public boolean renameTask(String projectID, String name, String newName) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tblName + " WHERE ProjectID = ? and Name = ?;");
+
+		ps.setString(1, projectID);
+		ps.setString(2,  name);
+
+		ResultSet resultSet = ps.executeQuery();
+
+		if (!(resultSet.next())) {
+			return false;
+		}
+		//boolean current = resultSet.getBoolean("isCompleted");
+
+		ps = conn.prepareStatement("UPDATE " + tblName + " SET Name = ? WHERE ProjectID = ? and Name = ?;"
+				);
+//				,ResultSet.TYPE_SCROLL_SENSITIVE, 
+//				ResultSet.CONCUR_UPDATABLE);
+
+		ps.setString(2, projectID);
+
+		ps.setString(3, name);
+
+		ps.setString(1, newName);
+		
+		ps.execute();
+
+		return true;
+	}
 
 
 }

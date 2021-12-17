@@ -28,8 +28,8 @@ LambdaLogger logger;
 		if (logger != null) { logger.log("in addTask \n"); }
 
 		TaskDAO dao = new TaskDAO();
-//		return dao.renameTask(projectID, name, newName); // not implemented
-		return false;
+		return dao.renameTask(projectID, name, newName); // not implemented
+		//return false;
 		
 		/*
 		// check if present
