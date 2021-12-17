@@ -242,7 +242,6 @@ public class TaskDAO {
 			LinkedList<Teammate> members = dao.getMemberList(parent, p);
 			for(Teammate t : members) {
 				dao.toggleTeammate(t.name, parent, p);
-				dao.toggleTeammate(t.name, task, p);
 			}
 
 
@@ -256,6 +255,11 @@ public class TaskDAO {
 
 			//            ps.setBoolean(2,  constant.isArchived);
 			ps.execute();
+			
+			for(Teammate t : members) {
+				dao.toggleTeammate(t.name, task, p);
+			}
+			
 			return true;
 
 
